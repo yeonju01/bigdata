@@ -1,0 +1,37 @@
+## 그룹함수
+: 여러 행 또는 테이블 전체 행에 대해 함수가 적용되어 하나의 결과값을 가져오는 함수
+1. GROUP BY : 그룹화하여 하나의 결과가 주어지도록 함
+2. HAVING : 그룹함수에 조건비교
+3. COUNT(*) : ­ 전체 로우수
+4. SUM : 그룹의 누적 합계
+5. AVG : 그룹의 평균
+6. COUNT : 그룹의 총 개수
+7. MAX : 그룹의 최대값
+8. MIN : 그룹의 최소값
+9. STDDEV : 그룹의 표준편차
+10. VARIANCE : 그룹의 분산
+
+## GROUP BY 형식
+SELECT 컬럼명, 그룹함수
+FROM 테이블명
+WHERE 조건(연산자)
+GROUP BY 컬럼명; — 컬럼명에는 별칭 사용 불가
+
+## HAVING 형식
+SELECT column, group_function
+FROM table
+[WHERE condition]
+[GROUP BY group_by_expression]
+[HAVING   group_condition]
+[ORDER BY column] ;
+
+## ROLLUP을 이용한 또 다른 집합 함수
+SELECT deptno, job, avg(sal) FROM emp GROUP BY ROLLUP(deptno, job);
+SELECT deptno, job, trunc(avg(sal)) FROM emp GROUP BY ROLLUP(deptno, job);
+
+## 가이드라인
+1. SELECT 절에 그룹함수에 포함된다면 GROUP BY 절에 각각의 열이 명시되어야 한다.
+2. WHERE 절을 사용하여 행을 그룹으로 나누기 전에 행을 제외한다
+3. 그룹에 대한 조건은 HAVING 절을 사용한다(그룹에 대한 조건을 WHERE절에서 기술 불가)
+4. GROUP BY 절에 열을 포함한다(열의 별칭은 사용할 수 없다)
+5. DEFAULT는 GROUP BY 절 다음에 기술된 순서로 오름차순으로 정렬되지만 ORDER BY 절을 이용하여 변경가능하다
