@@ -1,0 +1,16 @@
+## Sequence
+: 순차적인 번호를 자동으로 생성하는 객체
+- 생성되는 번호가 유일하여 기본 테이블에서 인조 PK 생성 시 주로 사용
+- 테이블과는 독립적으로 생성, 저장
+
+## Sequence 문법
+CREATE SEQUENCE sequence_name
+    START WITH 1 -- 기본값
+    INCREMENT BY 1 -- 기본값
+    MAXVALUE 9999
+    MINVALUE 1
+    NOCACHE
+    NOCYCLE;
+
+시퀀스 삭제 : DROP SEQUENCE 시퀀스명;
+시퀀스 수정 : ALTER SEQUENCE 시퀀스명 변경내용;
