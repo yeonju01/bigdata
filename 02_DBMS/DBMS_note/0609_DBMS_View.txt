@@ -1,0 +1,34 @@
+## View
+: 물리적 저장공간과 데이터를 가지지 않는 가상테이블
+- 제한적으로 접근하도록 가능(보안기능)
+- 기본 테이블 데이터의 변경사항 반영
+CREATE OR REPLACE VIEW view_name
+	AS subquery
+	WITH CHECK OPTION
+	WITH READ ONLY;
+
+단순뷰
+- 하나의 테이블로 구성
+- DML명령문으로 데이터 조작 가능
+복합뷰
+- 하나 이상의 기본 테이블로 구성된 뷰
+- DML명령문 제한적 사용
+- VIEW가 그룹함수, GROUP BY절, DISTINCT(중복삭제)를 포함하면 DML연산 수행불가
+
+## View의 제한조건
+WITH READ ONLY : 갱신불가 읽기전용
+WITH CHECK OPTION : 조건에 해당되는 데이터만 삽입, 삭제, 수정 가능
+
+## INLINE VIEW
+: FROM절 상의 서브쿼리 ; VIEW처럼 작용
+- SQL문장 내에서 서브쿼리는 SELECT, FROM, WHERE절 어디든 사용 가능
+SELECT column_list
+	FROM (subquery) alias
+	WHRER condition
+
+## TOP-N
+: 컬럼 값 중 N개의 가장 큰 값 또는 작은 값을 기준으로하는 구문
+- 데이터 정렬을 서브쿼리나 INLINE뷰로 생성(ORDER BY)
+SELECT ROWNUM, colume_list
+	FROM (SELECT colume_list FROM table ORDER BY TOP-N)
+	WHERE ROWNUM < N;
