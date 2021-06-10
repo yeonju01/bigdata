@@ -1,0 +1,17 @@
+## MySQL
+: SQL기반의 관계형 DBMS 중 하나(무료)
+MySQL Workbench로 가독성있는 작업 가능
+설치시 Execute버튼 이용
+
+## 데이터베이스 
+show databases; -- 존재하는 데이터베이스들 목록보기
+create database 데이터베이스명; -- 데이터베이스 생성
+drop database 데이터베이스명; -- 데이터베이스 삭제
+use 데이터베이스명; -- 데이터베이스로 들어가기
+select 데이터베이스명; -- 작업중인 데이터베이스 확인
+
+## Oracle과 MySQL의 약간의 차이점
+- foreign절은 밑에 작성해야함
+- outer join(Oracle의 (+)) : left join on
+- 함수(Oracle의 NVL) : ifnull(컬럼명, 0)
+- 단일행함수 컬럼함수
