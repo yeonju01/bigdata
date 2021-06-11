@@ -1,0 +1,22 @@
+## JDBC 프로그래밍
+: 자바 데이터베이스 프로그래밍 API
+자바 프로그램이 데이터 베이스와 연결되어 데이터를 주고 받을 수 있게 해 주는 프로그래밍 인터페이스
+
+## JDBC 프로그래밍 단계
+1. JDBC 드라이버 로드
+- 사용 API : Class.ForName()
+- Class.forName()
+2. 데이터베이스 연결
+- 사용 API : java.sql.Connection
+- DriverManager.getConnection()
+3. Statement생성(SQL문을 수행 할 객체 생성)
+- 사용 API : java.sql.Statement	java.sql.preparedStatement
+- Statement, prepatedStatement
+4. SQL문 전송
+- 사용 API : java.sql.Statement.executeQuery()	java.sql.Statement.executeUpdate()
+- executeQuery(), executeUpdate()
+5. 결과 받기(ResultSet)
+- 사용 API : java.sql.ResultSet
+6. 로직 수행
+7. 연결 해제
+- 사용 API : java.sql.Connection.close()
