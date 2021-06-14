@@ -1,0 +1,26 @@
+## JDBC소스
+1. 단순 연결
+oracle : Class.forName(“oracle.jdbc.driver.OracleDriver”);
+mysql : Class.forName(“com.mysql.jdbc.Driver”);
+String url = “jdbc:oracle:thin@127.0.0.1:1521:orcl”;
+String url = “jdbc:oracle:thin@127.0.0.1:1521:xe”;
+Connection conn = null;
+conn = DriverMananger.getConnection(url, “uid”, “pwd”);
+conn.close()
+
+2. 조회
+Statement stmt = conn.createStatement();
+ResultSet rs = stmt.excuteQuery(str);
+rs.close()
+stmt.close()
+conn.close()
+
+3. Insert
+Stmt.excuteQuery(sql) — 반환값 ResultSet
+Stmt.excuteUpdate(sql) — Insert, update, delete시 사용, 성공횟수 리턴(정수형) 가능
+
+4. PreparedStatement 인터페이스
+String sql_query = “insert into dept values (?,?,?)”;
+PreparedStatement pstmt = conn.preparedStatement(Sql_query);
+pstmt.setInt(1, classname);
+pstmt.setString (2,  classname);
