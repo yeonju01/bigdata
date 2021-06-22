@@ -1,0 +1,74 @@
+## CSS 속성
+1. CSS3 단위 : em, %, px
+2em(2배), 0.1em(0.1배)(=.1em)
+
+2. url()
+background-img:url('이미지파일명'); /* 원격지 그림도 가능*/
+
+3. display 속성
+- block : div,p,li태그의 속성값(높이 속성 있음)
+- inline : span태그의 속성값(높이 속성 없음)
+- inline-block : block속성을 가지고 옆으로 붙음(높이 속성 있음)
+
+4. visibility 속성
+- visibility:hidden : 공간확보 안보임
+- display:none : 공간삭제 안보임
+
+5. opacity 속성
+: 1~0까지 투명도 조절
+opacity:0.5;
+
+6. margin, padding 속성
+margin {상 좌 하 우}
+padding {상 좌 하 우}
+
+7. box-sizing
+box-sizing: border-box; : 보더를 박스 안으로
+box-sizing:content-box; : 보더를 박스 밖으로(디폴트값)
+
+8. border 속성
+border-width: 1px
+border-bottom-style: dashed;
+border-color: green;
+border-left-color: black;
+
+9. 글자 관련된 속성들
+font-family : 글꼴
+font-size
+font-style : 이탤릭체
+font-weight : 진하게
+line-height : 행간격 조정, 세로축 정렬(height와 동일하게 지정)
+text-align
+text-decoration
+
+10. position 속성
+absolute : 절대적 좌표
+fixed : 스크롤해도 화면에서 움직이지 않고 고정
+static : 블록형태로 쌓임(top, left값 의미 없음)
+relative : 상대적 좌표
+#wrap  {
+	position:relative; /* 안에 absolute가 들어가 있으면 밖은 relative */
+}
+#wrap #content1{
+	position:absolute;
+	top:10px; left:10px;
+	z-index:20; /* z-index가 큰 값이 위로 표현*/
+}
+
+11. float 속성
+#wrap {
+	overflow: hidden;
+}
+#wrap #content1{
+	float: right;
+}
+/* p{clear:both;}가 없으면 float:left속성이 그대로 계속 영향을 미치기도 함 */
+
+12. 웹 폰트
+<style>위에 웹폰트링크 넣기
+
+13. 로컬 폰트
+@font-face {
+	font-family : 'nm';
+	src: url('font/폰트파일명');
+}
