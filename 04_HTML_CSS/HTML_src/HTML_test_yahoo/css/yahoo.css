@@ -1,0 +1,196 @@
+﻿/*css/yahoo.css*/
+/*font/Amarante.ttf*/
+@font-face { /*@는 새로운 규칙생성*/
+    font-family: 'Amarante';
+    src: url('../font/Amarante-Regular.ttf'); /*css폴더에서 나와서 font폴더 접근*/
+}
+/******** 페이지 초기화 ********/
+* {
+    font-family: 'Amarante','Gill Sans', 'Gill Sans MT', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration:none;
+    color:black;
+}
+li {
+    list-style:none;
+}
+/************** HEADER ***************/
+header #header_nav {
+    width: 100%;
+    min-width: 1000px;
+    height: 25px;
+    line-height: 25px;
+    background-color: #2d1152;
+    font-size: .9em;
+    overflow: hidden;
+    color: #FFFFFF;
+}
+header #header_nav .gnb ul{
+    float:left;
+    margin:0 auto;
+    text-align:center;
+}
+header #header_nav .gnb ul li{
+    float:left;
+    margin: 0 20px 0 0;
+}
+header #header_nav .gnb ul li a {
+    color:#FFFFFF;
+}
+header #header_nav .gnb .football {
+    float:right;
+    padding:0 10px;
+}
+header #header_nav .gnb .football img {
+    width: 15px;
+    height: 15px;
+    position:relative;
+    top:3px;
+}
+header #header_info {
+    width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+header #header_info .logo {
+    margin:10px 10px 10px 0;
+    width:165px;
+    height:56px;
+    float:left;
+}
+header #header_info .search {
+    margin: 20px 0 0 0;
+    float:left;
+}
+.text_search {
+    width: 400px;
+    height: 27px;
+    color: black;
+    border-color: #3488d9;
+    padding: 5px;
+}
+.btn_search {
+    width: 124px;
+    height: 37px;
+    background: url('../img/search_btn.png') no-repeat 0 0;
+    border:0;
+    color:#FFFFFF;
+}
+header #header_info .login {
+    float: right;
+    line-height: 76px;
+}
+header #header_info .login li{
+    float:left;
+    margin: 0 15px;
+}
+/************** CONTENT ***************/
+#content {
+    width:1000px;
+    height: 935px;
+    margin: 10px auto;
+    padding: 10px 0 0 0;
+    overflow: hidden;
+}
+#content ul {
+    float:left;
+    width:155px;
+    height:45px;
+    margin:0 auto;
+    line-height:45px;
+}
+#content #main {
+    float:left;
+}
+#content #main div {
+    width:600px;
+    margin:0 3px 3px 0;
+    border:1px solid lightgray;
+    display:block;
+}
+#content #main div:nth-child(1) {
+    height:300px;
+}
+#content #main div:nth-child(2) {
+    height:150px;
+}
+#content #main #divS {
+    height:50px;
+    background-color:#500095;
+    margin: 0 auto;
+}
+#content #main #divS ul {
+    width:600px;
+    overflow: hidden;
+}
+#content #main #divS ul li{
+    float:left;
+    width:100px;
+    line-height:50px;
+    text-align:center;
+}
+#content #main #divS ul li a{
+    color:#FFFFFF;
+}
+#content #main div:nth-child(4) {
+    height:100px;
+}
+#content #main div:nth-child(5) {
+    height:100px;
+}
+#content #main div:nth-child(6) {
+    height:100px;
+}
+#content #main div:nth-child(7) {
+    height:100px;
+}
+#content #main_banner {
+    float:left;
+}
+#content #main_banner div{
+    width:230px;
+    margin:0 0 3px 0;
+    border:1px solid lightgray;
+    display:block;
+}
+#content #main_banner div:nth-child(1) {
+    height:100px;
+}
+#content #main_banner div:nth-child(2) {
+    height:100px;
+}
+#content #main_banner div:nth-child(3) {
+    height:150px;
+}
+#content #main_banner div:nth-child(4) {
+    height:150px;
+}
+#content #main_banner div:nth-child(5) {
+    height:200px;
+}
+/************** FOOTER ***************/
+footer #address {
+    width: 1000px;
+    height: 100px;
+    margin: 0 auto;
+    border:1px solid lightgray;
+}
+footer #address ul {
+    overflow: hidden;
+    margin: 30px 165px;
+}
+footer #address ul li {
+    float:left;
+}
+footer #address ul li:nth-child(1) {
+    width: 165px;
+    height: 56px;
+    padding: 0 30px 0 0;
+}
+footer #address ul li:nth-child(2) {
+    width: 474px;
+    height: 72px;
+}

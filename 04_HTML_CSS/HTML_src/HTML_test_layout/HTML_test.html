@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        * {
+            margin: 0 auto;
+            padding: 0;
+            width: 700px;
+        }
+        #header {
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            background-color: #e2ceff;
+        }
+        #wrap {
+            width: 698px;
+            height: 380px;
+            overflow: hidden;
+            border: 1px solid lightgray;
+        }
+        #wrap #nav {
+            width: 100%;
+            height:100px;
+            text-align: center;
+        }
+        #wrap #nav ul {
+            overflow: hidden;
+        }
+        #wrap #nav ul li {
+            width:100px;
+            height: 50px;
+            float:left;
+            list-style: none;
+            background-color: #a67de0;
+        }
+        #wrap #nav ul li a{         
+            color: black;
+            font-size:.5em;
+            line-height:50px;
+            text-decoration:none;
+            color:white;
+        }
+        #wrap #banner {
+            float:left;
+            width: 186px;
+            height: 100%;
+            margin:2px;
+            border: 1px solid lightgray;
+            position:relative;
+        }
+        #wrap #content {
+            float:left;
+            width: 500px;
+            height: 100%;
+            margin:2px;
+            border: 1px solid lightgray;
+        }
+        #footer {
+            background-color: #e2ceff;
+            height: 50px;
+            font-size: 10px;
+            text-align: center;
+            line-height: 50px;
+            color: darkslategray;
+            margin: 10px 0 0 0;
+        }
+        #footer p {
+            display:inline;
+        }
+        #background {
+            position: absolute;
+            top: 0;
+            opacity: .1;
+        }
+    </style>
+</head>
+<body>
+    <div id="background">
+        <img src="final-cover-forest.jpg">
+    </div>
+    <div id="header">
+        <h3>HEADER</h3>
+    </div>
+    <div id="wrap">
+        <div id="nav">
+            <h4>nav</h4>
+            <ul>
+                <li><a href="#menu1">menu1</a></li>
+                <li><a href="#menu2">menu2</a></li>
+                <li><a href="#menu3">menu3</a></li>
+                <li><a href="#menu4">menu4</a></li>
+                <li><a href="#menu5">menu5</a></li>
+                <li><a href="#menu6">menu6</a></li>
+                <li><a href="#menu7">menu7</a></li>
+            </ul>
+        </div>
+        <div id="content">
+            <h3>CONTENT</h3>
+        </div>
+        <div id="banner">
+            <h3>BANNER</h3>
+        </div>
+    </div>
+    <div id="footer">
+        <p>서울시 마포구 노고산동 94 그랜드 빌딩 7F</p>
+        <p>  |  COPYRIGHTⓒby yeon ALL RIGHT RESERVED</p>
+    </div>
+</body>
+</html>

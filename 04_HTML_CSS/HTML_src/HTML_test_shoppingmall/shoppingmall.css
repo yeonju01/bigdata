@@ -1,0 +1,210 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+header .gnb {
+    width: 100%;
+    background-color: black;
+}
+header .gnb ul {
+    width:1000px;
+    margin: 0 auto;
+    overflow: hidden;
+    line-height:30px;  
+    text-align:center;
+}
+header .gnb ul li{
+    float:left;
+    margin:0 10px;
+}
+header .gnb ul li a{
+    color:white;
+    width:80px;
+    text-decoration:none;
+    display:block;
+}
+header .logo {
+    width: 200px;
+    height: 100px;
+    text-align: center;
+    font-weight: normal;
+    border: 1px solid lightgray;
+    line-height: 100px;
+    color: gray;
+    margin: 0 auto;
+    position:relative;
+    top:30px;
+}
+header .hitmenu ul {
+    overflow: hidden;
+    position: relative;
+    top: 50px;
+    right: 30px;
+}
+header .hitmenu ul li {
+    width:80px;
+    height:40px;
+    float: right;
+    list-style: none;
+    border: 1px solid lightgray;
+    text-align: center;
+    line-height: 40px;
+}
+header .hitmenu ul li a {
+    text-decoration: none;
+    color: black;
+    display:block;
+}
+header .hitmenu li:nth-child(1) {
+    border-radius: 0 20px 20px 0;
+}
+header .hitmenu li:nth-child(4) {
+    border-radius: 20px 0 0 20px;
+}
+header .lnb {
+    width: 100%;
+    position: relative;
+    top: 55px;
+    border-top: dotted lightgray;
+    border-bottom: dotted lightgray;
+}
+header .lnb ul {
+    width:1000px;
+    margin: 0 auto;
+    overflow: hidden;
+    line-height:30px;  
+    text-align:center;
+}
+header .lnb ul li {
+    float: left;
+    margin: 0 10px;
+    list-style: none;
+}
+header .lnb ul li a {
+    text-decoration:none;
+    width:100px;
+    color:black;
+    display:block;
+}
+
+
+
+#content {
+    width: 1000px;
+    height:1200px;
+    margin: 0 auto;
+    position: relative;
+    top: 55px;
+}
+#content .section1{
+    width: 1000px;
+    height: 400px;
+    overflow:hidden;
+}
+#content .section1 .slide_banner {
+    width:700px;
+    height:400px;
+    border:1px solid lightgray;
+    line-height:400px;
+    text-align:center;
+    box-sizing:border-box;
+    float:left;
+}
+#content .section1 .side_banner {
+    width:300px;
+    height:400px;
+    border:1px solid lightgray;
+    line-height:400px;
+    text-align:center;
+    box-sizing:border-box;
+    float:left;
+}
+#content .section2 {
+    width: 1000px;
+    height: 400px;
+    margin: 10px 0 0 0;
+}
+#content .section2 .hit_product {
+    width:1000px;
+    height:400px;
+    border:1px solid lightgray;
+    line-height:400px;
+    text-align:center;
+    box-sizing:border-box;
+    overflow:hidden;
+}
+#content .section2 .hit_product ul li {
+    float: left;
+    list-style: none;
+    width: 233px;
+    height: 400px;
+    line-height:400px;
+    text-align:center;
+    border:1px solid lightgray;
+    margin:0 7px 0 7px;
+
+}
+#content .section2 .hit_product ul li a {
+    text-decoration : none;
+    color:blue;
+}
+#content .section2 .md_product {
+    width:1000px;
+    height:400px;
+    margin:10px 0 0 0;
+    border:1px solid lightgray;
+    line-height:400px;
+    text-align:center;
+    box-sizing:border-box;
+    overflow:hidden;
+}
+#content .section2 .md_product ul li {
+    float: left;
+    list-style: none;
+    width: 233px;
+    height: 400px;
+    line-height:400px;
+    text-align:center;
+    border:1px solid lightgray;
+    margin:0 7px 0 7px;
+}
+#content .section2 .md_product ul li a {
+    text-decoration : none;
+    color:blue;
+}
+
+footer {
+    overflow: hidden;
+    width: 1000px;
+    height: 300px;
+    margin: 0 auto;
+    position:relative;
+    top:80px;
+}
+footer .office_logo {
+    float: left;
+    width: 200px;
+    height: 100px;
+    border:1px solid lightgray;
+}
+footer .office_address {
+    float: left;
+    width: 500px;
+    height: 100px;
+    border:1px solid lightgray;
+}
+footer .shopping_info {
+    float: left;
+    width: 294px;
+    height: 100px;
+    border:1px solid lightgray;
+}
+footer .copyright {
+    float: left;
+    width: 1000px;
+    height: 30px;
+    margin: 10px 0 0 0;
+    text-align:center;
+    background-color:black;
+    color: #FFFFFF;
+}
