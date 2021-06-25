@@ -1,0 +1,35 @@
+## CSS3규칙
+1. CSS파일 분리
+<link rel="stylesheet" href="header.css" />
+
+2. @import규칙 : @로시작, 스타일태그 내부에 위치
+<style>
+	@import url(‘title.css’);
+</style>
+
+3. @media규칙
+- all : 모든 미디어 타입
+- aural : 음성 합성 장치
+- braille : 점자 표시 장치
+- handheld : 손으로 들고 다니면서 볼 수 있는 작은 스크린에 대응하는 용도
+- print : 인쇄 용도
+- projection : 프로젝터 표현 용도
+- screen : 컴퓨터 스크린을 위한 용도
+- tv : 음성과 영상이 동시 출력되는 TV와 같은 장치
+- embossed : 페이지에 인쇄된 점자 표지 장치
+
+
+## 반응형 웹 : PC, 스마트폰, 태블릿
+<meta charset="utf-8" name="viewport"
+      content="width=device-width, initial-scale=1.0"/>
+
+## 웹문서 제작 팁
+1. 편집 툴 : visual studio, notepad++ editplus(유료), dreamweaver(유료), 이클립스 EE
+2. 더미 텍스트 : http://lipsum.com, 한글 입숨
+3. 단위 변환(px, em, %) : http://pxtoem.com/
+4. 레이아웃 가상 이미지 : 	http://placehold.it/100x100 ex) <img src="htt://placehold.it/100x100" />
+5. W3C(월드와이드웹 컨소시엄, 활동사항, 기술동향 등 정보제공) : http://www.w3.org/
+6. 다양한 디바이스 환경의 미디어쿼리 : http://mediaqueri.es/
+7. 웹 접근성 관련 : http://www.wah.or.kr
+8. HTML,XML,브라우저,서버스크립트 튜토리얼 : W3schools.com
+9. 색상정보 : http://www.colorpicker.com
