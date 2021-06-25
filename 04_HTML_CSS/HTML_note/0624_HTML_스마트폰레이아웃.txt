@@ -1,0 +1,16 @@
+## 스마트폰 레이아웃
+1. viewport 
+: HTML문서에 meta태그로 특정 정보를 나타냄, 스마트폰 단말기 크기에 맞추어 보여짐
+- 뷰포트 속성
+width : 화면의 너비
+height : 화면의 높이
+initial-scale : 초기 확대 비율
+user-scalable : 확대 및 축소 가능 여부
+minimum-scale : 최소 비율
+maximum-scale : 최대 비율
+
+2. header 제작
+3. nav 제작
+4. 본문 제작(section레이아웃)
+5. footer 제작
+6. 기본 스마트폰 레이아웃 제작
