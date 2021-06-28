@@ -1,0 +1,37 @@
+## R 언어 기초
+1.도움말 
+?iris, help(“iris”) : 함수, 데이터셋 등 데이터 도움말
+
+2.도움말 검색
+??iris, help.search(“iris”) : 함수 등 이름 검색
+
+3.패키지 도움말
+library(help=“stats”) : 설치된 패키지에서 제공하는 함수목록 등 도움말
+
+4.함수 도움말
+methods(as) : 함수 목록 검색조회
+args(data) : 함수 파라미터 정보 조회
+
+5.정보 조회
+attributes(iris) : 객체 속성 조회
+
+6.사용 사례 표시
+examples(mean) : 함수 사용 예시
+
+7.주석(#)과 자동완성(TAB키)
+
+8.패키지
+install.packages(“패키지명”, lib.loc=“설치경로”) : 라이브러리 설치
+library(패키지명), require(패키지명) : 라이브러리 메모리 로딩
+data(list=“데이터셋명”, package=“패키지명”) : 데이터셋 로딩
+detach(“패키지명”, unload=TRUE) : 언로드
+
+9.변수
+데이터타입 키워드 지정x 
+데이터 할당 연산자(<-, ->, =(파라미터할당), <<-, ->>)
+.변수명 : 히든변수
+ls(all.names=FALSE) : 변수 목록 출력(히든변수 포함)
+pls.str : 변수 이름,구조 출력
+cat() : 여러개 항목을 묶어 출력
+paste() : 문자열 이어줌(sep, collapse 구분자 사용가능)
+rm(list=ls(all.names=TRUE)) : 변수 삭제(히든변수 포함)
