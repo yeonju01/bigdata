@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        #nav ul {
+            overflow:hidden;
+            list-style:none;
+        }
+        #nav ul li {
+            float:left;
+            padding:0 5px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            /* $('img').mouseover(function () {
+                var idx = $(this).attr('src').substring(4, 5);
+                $(this).attr('src', 'img/' + idx + 'over.jpg');
+            });
+            $('img').mouseout(function () {
+                var idx = $(this).attr('src').substring(4, 5);
+                $(this).attr('src', 'img/' + idx + 'out.jpg');
+            }); */
+            $('img').each(function (idx, item) {
+                $(item).mouseover(function () {
+                    $(item).attr('src', 'img/' + idx + 'over.jpg');
+                });
+                $(this).mouseout(function () {
+                    $(this).attr('src', 'img/' + idx + 'out.jpg');
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="nav">
+        <ul>
+            <li><img src="img/0out.jpg" /></li>
+            <li><img src="img/1out.jpg" /></li>
+            <li><img src="img/2out.jpg" /></li>
+            <li><img src="img/3out.jpg" /></li>
+        </ul>
+    </div>
+</body>
+</html>
