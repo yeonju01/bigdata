@@ -1,0 +1,56 @@
+## R 데이터 종류 및 구조
+1. 데이터 속성에 따른 구분
+명명식(Nominal)
+순서식(Ordinal)
+구간식(Interval)
+비율식(Ratio)
+
+2. 변수 타입에 따른 구분
+연속형 변수(Continuous)
+이산형 변수(Discrete)
+범주형 변수(Categorical)
+
+3. 데이터 품질에 따른 구분
+특이값(Outlier) : 정상적이지 않은 데이터
+결측값(Missing) : 측정되지 않은 값, NA 
+
+4.분석용 변수
+요약변수 : 1차 가공한 변수
+파생변수 : 특정조건을 만족하여 가중치를 부여한 변수
+
+5.구조형 변수&복합형 변수
+구조형 변수 : 한 가지 데이터 타입 값만 가짐
+Scalar : 하나의 기본형 데이터 변수
+Factor : 범주형 변수
+Vector : 동일한 형태의 데이터 집합 
+Matrix
+Array
+복합형 변수 : 서로 다른 데이터 타입 값을 가짐
+list, data.frame, data.table
+
+## R 기본 데이터타입
+class() : 타입 확인
+str() : 구조 확인
+문자(character) : 문자와 문자열 구분 없음, ‘’ , “”
+숫자(numeric) : 정수형 실수형 구분 없음, 기본값0
+논리(logical) : TRUE, FALSE
+팩터(Factor) : 미리 정해진 범주형 변수 
+
+## 예약어
+NULL : 값이 없음
+NA : 측정되지 않음(결측치)
+NaN : 변수 값이 숫자가 아님
+Inf : 무제한으로 큰 값
+
+## Vector(벡터)
+c(), length(), NROW()
+벡터 결합 : c()
+벡터 추가 : append()
+벡터 비교 : setequal()
+벡터 합집합 : union()
+벡터 교집합 : intersect()
+벡터 차집합 : setdiff()
+리스트(List) : 키,값 형태의 데이터를 담는 연관 배열
+data <- list(name=“홍길동”, age=25)
+시퀀스 : seq()
+리피트 : rep(x, times=1, length.out=NA, each=1)
