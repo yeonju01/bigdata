@@ -1,0 +1,67 @@
+## Matrix(행렬)
+: 행과 열을 가지는 2차원 배열, 한가지 유형의 스칼라 데이터만 저장 가능
+matrix()
+byrow=TRUE - 기본값은 열 우선
+dimnames()
+ncol() nrow()
++,-,%*%(행렬의 곱)
+t() : 전치 행렬(행,열 교환)
+solve() : 역행렬
+diag() : n차 대각선 행렬
+
+# 행,열 조회
+dim() : 행과 열의 갯수 조회
+nrow() NROW() : 행 갯수
+ncol() NCOL() : 열 갯수
+length() : 행*열
+dimnames() : 행과 열의 이름 조회
+rownames() : 행 이름 조회
+colnames() : 열 이름 조회
+
+# 행렬 데이터 조회
+matrix[1:2, ] : 1,2행 데이터 반환
+matrix[-3, c(1, 2)] : 3행 제외 1,2열 데이터 반환
+matrix[c(T,T,F,F,T), ] : 1,2,5행 데이터 반환
+matrix[“R1”, ”C1” ] : R1행C1열 데이터 벡터형태 반환
+matrix[“R1”, ”C1”, drop=FALSE] : Matrix 형태로 반환
+
+## Array(배열)
+: 3차원 이상의 데이터를 다룸
+dataArray <- array(data, dim=c(행 수, 열 수, 면 수))
+
+# 객체의 속성 변경
+attr(객체, “속성이름”) <- 속성값
+attr(dataArray, “dim”) <- c(3,8)
+
+## 데이터 프레임(data.frame)
+: 2차원 구조, 복합형 데이터 타입
+data.frame(…,row.names=NULL, check.rows=FALSE,
+		check.names=TRUE, fix.empty.names=TRUE,
+		stringsAsFactors=default.stringsAsFactors())
+열 추가 : data$column <- c()
+열 삭제 : data$column <- NULL
+열 타입변경 : as.character
+열 이름지정 : rename()
+데이터 프레임 합치기
+열 단위 병합 : cbind(a, b)
+행 단위 병합 : rebind(a, b)
+
+subset : 부분 데이터셋 조회 
+head, tail : 부분 데이터셋 조회 
+edit() : 데이터 편집
+class() : 타입 확인
+is.character() : 타입 확인
+as.character() : 타입 변경
+
+## 문자열과 날짜
+nchar() : 문자열 길이 반환 
+length() : 벡터 길이 반환
+paste() : 문자열 연결 sep
+substr(string, start, end) : 하위 문자열 추출
+strsplit(string, delimiter) : 문자열 분할
+delimiter : 구분자, 정규표현식
+sub(old, new, string) : 첫번째 하위 문자열만 대체
+gsub(old, new, string) : 모든 하위 문자열 대체
+outer(문자열1, 문자열2, paste, sep=“”) : 외적 계산, 쌍별 조합 생성
+Sys.Date() : 현재 날짜 반환(Date객체)
+as.Date : 문자열을 날짜로 변환 
