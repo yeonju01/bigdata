@@ -1,0 +1,74 @@
+## R 프로그래밍
+1. if ~else
+if(조건식) {
+
+}else if(조건식) {
+
+}else {
+
+}
+
+2. ifelse() : 테스트여부 TRUE, FALSE 여부에따라 결과 반환
+ifelse((number%%2)==0 ,"짝수", "홀수")
+
+3. switch()
+switch(statement, list)
+switch(2, "red", "blue", "green")
+범위 벗어난 경우 : NULL
+
+4. 반복문 (for, while, repeat)
+for (val in sequence) {
+	statement
+}
+
+while (조건식) {
+	statement
+}
+
+repeat {
+	statement
+}
+
+7. 탈출문 (break, next)
+break : 반복문 빠져나옴
+next : 다음 반복으로 건너뛰어 진행
+
+8.연산자
+산술연산자 : +, -, *, /, ^, %%(나머지), %/%(몫)
+관계연산자 : <, >, <=, >=, ==, !=
+논리연산자 : !, &, &&, |, ||
+할당연산자 : <-, <<-, = , ->, ->>
+
+9.중위 연산자
+%%(나머지), %/%(몫), %*%(행렬의곱),
+%o%(외적), %x%(크로네커곱), %in%(매칭연산자)
+
+10.함수
+function()
+func_name
+
+11.이름은 갖는 인자, 인자의 기본값
+:함수를 호출하면 인수는 위치 순서대로 발생
+pow(2,3) 
+pow(x=2, y=3)
+
+12.리턴문
+return(result) 명시적
+묵시적인 경우 마지막 표현식의 값이 자동으로 반환
+list객체로 다중 리턴 가능 return(list)
+
+13.가변인자(…)
+mean(x, …)
+add <- function(…)
+
+14.재귀호출
+recurse <- function(){ 
+	recurse()
+}
+
+15.R환경(Environment)
+ls() : 현재 환경에서 정의된 변수, 함수 표시
+
+16.유효범위
+전역변수 : 프로그램을 실행하는 동안 존재하는 변수
+지역변수 : 프로그램의 특정 부분에만 존재하는 변수, 호출이 끝나면 해제
