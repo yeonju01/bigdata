@@ -1,0 +1,86 @@
+## write, read
+1. write.table(data, file=“저장할파일명”, quote=TRUE, sep=“,”, row.names=TRUE) 
+
+2. data <- read.table(“파일명”, header=TRUE,  sep=“,”, stringsAsFactors=FALSE, comment.char=‘#’, fileEncoding=‘UTF-8’, encoding=‘CP949’)
+
+3. write.csv (data, file=“저장할파일명”)
+
+4. data <- read.csv (file=“파일명”)
+
+5. cat(…, file=“저장할파일명”, sep=“,”, labels=NULL, append=TRUE
+
+##  apply
+: apply 계열 함수를 이용하면 반복문 사용보다 코드최소화, 수행 속도 빠름
+
+1. apply : 행렬이나 배열 차원별로 지정한 함수 적용(벡터로 반환)
+apply(대상객체, 차원, 함수, …)
+
+2. lapply : list apply (함수를 적용한 결과를 list로 반환)
+lapply(대상객체, 함수, …)
+
+3. sapply : lapply와 유사하나 결과를 리스트 대신 행렬, 벡터로 반환
+sapply(대상객체, 함수, …, SIMPLIFY=TRUE, USE.NAMES=TRUE)
+
+4. vapply : sapply와 유사하나 FUN의 모든 값이 FUN.VALUE와 호환되는지 확인
+vapply(대상객체, 함수, FUN.VALUE, …,  USE.NAMES=TRUE)
+
+5. mapply : 함수 적용시 여러개의 인자를 함수에 전달
+mapply(함수, …,  MoreArgs=NULL, SIMPLIFY=TRUE, USE.NAMES=TRUE)
+
+
+## 그룹화 처리
+1. tapply : 1개 열에 대해 1개의 함수로 그룹화 처리
+tapply(대상객체, INDEX, FUN=NULL, …, default=NA, simplify=TRUE)
+
+2. by : 1개이상의 열에 대해 1개의 함수로 그룹화 처리(1개 이상의 열 mean, sd X)
+by(data, INDICES(팩터), FUN, …, simplify=TRUE)
+
+3. summaryBy : 1개이상의 열에 대해, 1개 이상의 함수로 1개 이상의 그룹화 처리
+
+4. aggregate : 1개이상의 열에 대해, 1개의 함수로 1개 이상의 그룹화 처리
+
+## doBy 패키지
+install.packages(“doBy”)
+require(doBy)
+
+1. summaryBy : 1개이상의 열에 대해, 1개 이상의 함수로 1개 이상의 그룹화 처리
+summaryBy(formula, data=parent.frame(), id=NULL, FUN=mean, keep.names=FALSE, p2d=FALSE, order=TRUE, full.dimension=FALSE, var.names=NULL, fun.names=NULL, …)
+
+2. orderBy : 열(변수)기준 정렬한 데이터 프레임
+orderBy(formula, data)
+
+3. sampleBy : 그룹별 데이터를 sampling
+sampleBy(formula, frac=0.1, replace=FALSE, data=parent.frame(), systematic=FALSE)
+
+## 데이터 추출과 분리
+- split(데이터 프레임, 분리조건이나 분리그룹변수) : list형태로 데이터 분리
+split(데이터, 팩터, drop=FALSE, …)
+- subset(데이터프레임, subset=행조건, select=출력될변수) : 데이터 추출
+subset(데이터, subset, select, drop=FALSE, …)
+
+## 데이터 합치기
+1. cbind() : 열합치기(컬럼합치기)
+cbind(…, departs.level=1)
+
+2. rbind() : 행합치기
+rbind(…, departs.level=1)
+
+3. merge() : 병합하기
+marge(데이터x, 데이터y, by=intersect(name(x), name(y)), by.x=by, by.y=by, all=FALSE, all.x=all, all.y=all, sort=TRUE, suffixes=c(“.x”, ”.y”), incomparable=NULL, …)
+
+## 데이터 정렬
+1. sort() : 정렬한 데이터를 반환
+sort(데이터, partial=NULL, decreasing=FALSE, na.last=NA, method=c(“auto”, “shell”, “quick”, “radix”), index.return=FALSE)
+
+2. order() : 정렬한 색인을 반환
+order(…, na.last=NA, decreasing=FALSE, method=c(“auto”, “shell”, “quick”, “radix”))
+
+## 데이터 집계
+1. table : 그룹별 갯수 집계
+2. aggregate  : 1개이상의 열에 대해, 1개의 함수로 1개 이상의 그룹화 처리
+
+## 조건으로 색인찾기 : which(), which.min(), which.max()
+with(data, expr, …)
+within(data, expr, …)
+
+https://autodeskresearch.com/publications/samestats
