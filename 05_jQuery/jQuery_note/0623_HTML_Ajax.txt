@@ -1,0 +1,104 @@
+## Ajax
+: 웹페이지의 특정부분만 업데이트하고 서버와 데이터를 교환하는 기술
+ajax관련 API - http://api.jquery.com/category/ajax/ 
+
+## jQuery에서 Ajax메소드
+: 외부데이터 로딩
+$(selector).load(URL, data, callback함수);
+(ex)
+$(document).ready(function(){
+	$('button').click(function () {
+		$('#div1').load("demo_test.txt");
+	});
+});
+
+## Http Reauest : GET vs. POST
+1. $.get(URL, callback);
+2. $.post(URL,{파라미터이름:전달파라미터값, callback);
+3. $.ajax({ })
+
+.$ajax(json형식으로 옵션설정)
+$.ajax({url:'', type:'get', data:~ , success:function(data,status){
+} 
+});
+url : 요청경로
+type : get방식 / post 방식
+data : 요청 파라미터와 파라미터값
+dataType : html/json/... 요청경로로 실행한 결과의 타입
+success : 요청경로로 실행한 응답이 성공하였을 때 수행할 콜백함수
+error :  요청경로로 실행한 응답이 실패되었을 때 수행할 콜백함수
+
+(ex)
+MemberDao.java
+<%@page import="com.tj.ex.dao.MemberDao"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+idConfirm.jsp
+<body>
+<%
+	String mId = request.getParameter("mId");
+	MemberDao mDao = MemberDao.getInstance();
+	int result = mDao.mIdConfirm(mId);
+	if(result==MemberDao.EXISTENT){
+		out.print("중복된 ID입니다");
+	}else{
+		out.print("사용 가능한 ID입니다");
+	}
+%>
+</body>
+
+ex01_get.html
+<script>
+$(document).ready(function(){
+	$('button').click(function(){
+		var mId = $('#mId').val();
+		$.get('idConfirm.jsp?mId='+mId, function(data, status){
+			if(status == 'success'){
+				$('#result').html(data);
+			}
+		});
+	});
+});
+		$('#mId').keyup(function(){
+			var mId = $('#mId').val();
+			$.get('idConfirm.jsp?mId='+mId, function(data, status){
+				if(status == 'success'){
+					$('#result').html(data);
+				}
+			});
+		});
+	});
+</script>
+
+ex02_Post.html
+<script>
+$(document).ready(function(){
+	$('button').click(function(){
+		var mId = $('#mId').val();
+		$.post('idConfirm.jsp',{mId:mId}, function(data, status){
+			$('#result').html(data);
+		});
+	});
+});
+</script>
+
+ex03_ajax.html
+<script>
+$(document).ready(function(){
+	$('button').click(function(){
+		var mId = $('#mId').val();
+		$.ajax({
+			url : 'idConfirm.jsp',
+			type : 'get',
+			data : 'mId='+mId,
+			dataType : 'html',
+			success : function(data){
+				$('#result').html(data);
+			},
+			error : function(code){
+				alert(code.status);
+			}
+		});
+	});
+});
+</script>
