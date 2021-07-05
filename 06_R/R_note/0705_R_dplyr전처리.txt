@@ -1,0 +1,43 @@
+## dplyr을 이용한 전처리
+1.데이터 준비
+mpg <- as.data.frame(ggplot2::mpg) # 데이터 불러오기
+library(dplyr) # 로드
+library(ggplot2) # 로드
+
+2.데이터 파악
+head(mpg)
+tail(mpg)
+View(mpg) #확인용
+dim(mpg) #차원
+str(mpg) #속성
+summary(mpg) #요약통계량
+
+3.변수명 수정
+mpg <- rename(mpg, company = manufacturer)
+
+4.파생변수 생성
+mpg$total <- (mpg$cty + mpg$hwy)/2 #변수 조합
+mpg$test <- ifelse(mpg$total>=20, "pass", "fail") #조건문 활용
+
+5.빈도확인
+table(mpg$test) #빈도표출력
+qplot(mpg$test) #막대그래프 생성
+
+## dplyr 데이터 가공 함수
+filter() : 행 추출
+select() : 열(변수) 추출
+arrange() : 정렬
+mutate() : 변수 추가
+summarise() : 통계치 산출
+group_by() : 집단별로
+left_join() : 데이터 합치기(열)
+bind_rows() : 데이터 합치기(행)
+
+- 집단별로 요약시 자주 사용하는 요약통계량 함수
+mean() : 평균
+sd() : 표준편차
+sum() : 합계
+median() : 중앙값
+min() : 최솟값
+max() : 최댓값
+n() : 빈도
