@@ -1,0 +1,29 @@
+## 데이터베이스 이용(SQL)
+sqldf() : 데이터프레임의 데이터를 SQL 문장으로 조회
+(ex) sqldf(SELECT구문, stringAsFactors=FALSE)
+
+SELECT 구문의 열이름에 .이 있는 경우 -> ("Sepal.Length")
+중복행 제거 -> distinct
+(ex) sqldf('select distinct Species from iris')
+
+where : 데이터 조회 조건지정
+group by : 팩터별 집계
+order by : 정렬(오름차순: asc, 내림차순: desc)
+limit : 일정개수의 데이터만 출력 
+(ex) sqldf("select * from iris limit 1, 6) -> 1번째 행부터 6번째 행 출력
+join : 데이터셋 조인
+
+## RJDBC
+: R에서 JDBC를 이용하여 데이터베이스에 연결하는 패키지
+1.드라이버클래스 로드
+JDBC(driverClass="", classPath="")
+2.데이터베이스 연결
+dbConnect(drv, ...)
+3.테이블 데이터 조회
+dbGetQuery(con, “statement”, …)
+4.테이블 전체 데이터 조회
+dbReadTable(con, “name”, …)
+5.데이터 수정
+dbSendUpdate(con, “statement”, …)
+6.데이터베이스 연결 종료
+dbDisconnect(con)
