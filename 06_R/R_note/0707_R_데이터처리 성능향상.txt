@@ -1,0 +1,55 @@
+## plyr 패키지
+: R의 패키지 함수, 데이터의 split, apply, combine 패턴을 구현함
+xyply(.data, ...) - x : 입력데이터 타입, y : 출력데이터 타입
+
+# ddply(), adply()
+(ex) Species로 group by하여 Sepal.Length의 평균 구하기
+ddply(iris, .(Species), function(group){
+	data.frame(mean=mean(grouop$Sepal.Length))
+})
+(ex) 각 열의 합 구하기
+adply(iris[, 1:4], 2, function(col){
+	sum(col)
+})
+
+## reshape2 패키지
+: 데이터의 구조를 변경하기 위한 함수를 제공
+(ex) 5,6번째 칼럼을 고정하고 나머지칼럼은 variable, value 칼럼으로 변환
+library(reshape2)
+data <-melt(airquality, id=c(5, 6),na.rm=TRUE)
+
+# dcast(), acast()
+dcast(data, formula, fun.aggregate=NULL, …, margins=NULL,
+	subset=NULL, fill=NULL, drop=TRUE, 
+	value.var=guess_value(data)) # 데이터프레임 타입
+(ex) 행과 열의 형태로 데이터표시(수식=행~ 열), data.frame반환
+dcast(data, MOnth ~ variable,sum)
+dcast(data, MOnth + Day ~ variable, NULL)
+
+acast(data, formula, fun.aggregate=NULL, …, margins=NULL,
+	subset=NULL, fill=NULL, drop=TRUE, 
+	value.var=guess_value(data)) # 벡터/행렬/배열 타입
+(ex) 행과 열의 형태로 데이터표시(수식=행~ 열), matrix반환
+acast(data, MOnth ~ variable,sum)
+acast(data, MOnth +  Day ~ variable,sum)
+acast(data, Day ~ variable ~ MOnth,sum)
+
+## melt()
+: 열 단위 데이터구조를 행 단위로 바꿈(열 이름과 값을 variable, value 열에 저장된 형태로 반환)
+melt(data, ..., na.rm=FALSE, value.name='value')
+(ex) Month와 Day열은 고정하고 melt하기
+ melt(airquality, id=c(''Month, 'Day'), na.rm=T)
+
+## 데이터 테이블
+: 데이터 프레임에서 상속, 간결하고 일관성있는 구문 제공
+data.table(…, keep.rownames=FALSE, check.names=FALSE,
+		key=NULL, stringsAsFactors=FALSE)
+dt[i, j, bym keybym WITH=TRUE,
+	no match = getOption(“datable.nomatch”), mult=“all”, .SDcols]
+(ex) j(열)이름 변경 조회
+flights[, .(delay_arr = arr_delay, delay_dep = dep_delay)]
+(ex) 항공사AA의 월,origin,dest 별 출발지연과 도착지연의 평균 계산
+flights[carrier==“AA”, .(mean(arr_delay), mean(dep_delay)),
+	by=.(origin, dest, month)]
+(ex) 출발 공항별 여행의 수 출력
+flights[, .(.N), by=.(origin)]
