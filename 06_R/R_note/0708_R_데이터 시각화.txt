@@ -1,0 +1,77 @@
+43일
+
+0708_R_데이터 시각화
+
+## 시각화 종류
+산점도/선그래프/히스토그램/밀도그래프/막대그래프/박스그래프/모자이크플롯/파이차트
+
+1.High level plotting commands
+plot() : 기본 그래프  
+barplot() : 막대 그래프
+boxplot() : 박스플롯 그래프
+hist() : 히스토그램 그래프
+curve() : 수식 그래프
+qqnorm() : 분위수-분위수(Q-Q) 그래프
+
+2.Low level plotting commands
+points() : 점 추가
+lines() : 선 추가
+abline() : 직선 추가
+polygon() : 다각형 추가
+text() : 문자 추가
+segments() :선분 추가 
+(ex) segment(x1, y1, x2, y2) : (x1,y1)과 (x2,y2)를 잇는 직선추가
+
+## 고수준 시각화 함수들
+1.plot()
+plot(x, y, ...)
+...의 인수들 : type, main, sub, xlab, ylab, asp(y/x종횡비)
+
+2.barplot()
+barplot(height, ...) # height는 벡터 또는 행렬
+beside : FALSE이면 누적높이, TRUE이면 나란히 배치
+
+3.boxplot()
+boxplot(formula, data=NULL, ..., subset, na.action=NULL)
+formula : 그룹화변수~그룹데이터벡터
+na.action : 누락 값 무시
+
+4.hist()
+hist(x, breaks="Sturges", ...)
+breaks : 셀을 나누기 위한 벡터 또는 지정 셀의 수(알고리즘 가능)
+Sturges : 데이터 범위 사용
+
+5.pie()
+6.mosaicplot()
+
+## par()
+: 그래프 조정, 특성 지정을 위해 사용, 전역변수를 수정하여 모든 그래픽에 영향
+oldPar <- par(bty="L")
+plot(cars)
+par(oldPar)
+plot(cars)
+
+## ggplot2
+ggplot(data=mtcars, aes(x=wt, y=mpg)) + #그래프 초기화
+	geom_point() + #그래프 시각적 결과물
+	labs() #그래프 부가요소
+기하객체(Geometric object, geom)
+geom_point() : 산점도
+geom_smooth() : 회귀선
+geom_line() : 선 그래프
+geom_histogram() : 히스토그램
+geom_density() : 밀도그래프
+geom_bar() : 막대그래프, 도수분포표
+geom_pointrange() : 값과 범위 표시
+geom_hline() : 가로선
+
+차트 분할 출력
+grid.arrange(차트1, 차트2, ncol=2)
+
+산점도 행렬(pairs)
+pairs(iris[-5], panel=panel.smooth)
+
+(ex) 데이터를 이용한 미적속성 설정
+ggplot(iris, aes(x=Petal.Width, y=Petal.Length)) +
+	geom_point(aes(color=Species, size=Petal.Width), alpha=0.5) +
+	geom_smooth(method="loess", color="blue") #추세선, 신뢰구간
