@@ -1,0 +1,25 @@
+## 시각화 저장
+(1) basic graph, ggplot패키지 모두 저장
+jpeg('iris.jpg', width=400, height=400)
+boxplot(iris$Sepal.Length)
+dev.off()
+ 
+getwd()
+png('outData/iris.png', width=300, height=150)
+ggplot(iris, aes(x=Petal.Length, y=Petal.Width)) +
+  geom_point() +
+  facet_wrap(~Species)
+dev.off()
+
+(2) ggplot2 패키지 그래프 함수에서만 저장할 수 있는 방법
+ggplot(iris, aes(x=Petal.Length, y=Petal.Width, col=Species)) +
+  geom_point(aes(size=Petal.Width), pch=2, alpha=0.5)
+ggsave('outData/iris.jpg')
+
+## R 마크다운
+: 코드와 결과물이 설명 글과 함께 어우러진 데이터 분석 보고서 만들기
+- 재현성(Reproducibility)을 갖춘 보고서
+- HTML, 워드, PDF 등 다양한 포맷으로 저장 가능
+
+마크다운 문법
+# 1 단계 제목 ## 2 단계 제목 ### 3 단계 제목 #### 4 단계 제목  문자 앞뒤에 *특수 문자*를 넣으면 기울임체가 됩니다. 문자 앞뒤에 **특수 문자**를 넣으면 강조체가 됩니다. 문자 앞뒤에 ~~특수 문자~~를 넣으면 취소선을 만듭니다. 문자 앞뒤에 [특수 문자](http://www.google.com/search?q=special+character)를 넣으면 하이퍼링크를 만듭니다. 데이터 앞부분 일부를 출력하려면 `head()` 를 이용하면 됩니다. `tail()`은 데이터 뒷부분 일부를 출력하는 기능을 합니다.  아래와 같이 작성하면 코드와 함께 실행한 결과물이 출력됩니다. ```{r} summary(cars) library(ggplot2) qplot(data = mpg, x = drv, fill = drv) ```  별도로 이미지 파일을 붙여 넣는 작업을 하지 않아도 코드 아래에 그래프를 삽입할 수 있습니다. ```{r} library(ggplot2) qplot(data = mpg, x = drv, fill = drv) ```

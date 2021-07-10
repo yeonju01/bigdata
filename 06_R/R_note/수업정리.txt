@@ -1,8 +1,0 @@
-## 시각화 저장
-
-ggplot2 패키지 그래프 함수에서만 저장할 수 있는 방법
-ggplot(iris, aes(x=Petal.Length, y=Petal.Width, col=Species)) +
-  geom_point(aes(size=Petal.Width), pch=2, alpha=0.5)
-ggsave('outData/iris.jpg')
-
-## 마크다운
