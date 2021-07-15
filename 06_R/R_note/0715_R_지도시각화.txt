@@ -1,0 +1,29 @@
+## 지도시각화
+1.패키지 준비
+install.packages("ggiraphExtra") 
+library(ggiraphExtra) 
+
+# 깃에서 가져오는 경우
+install.packages("devtools") 
+devtools::install_github("cardiomoon/kormaps2014") 
+library(kormaps2014) 
+
+
+2.데이터준비
+head(USArrests) 
+str(USArrests) 
+
+library(tibble) 
+crime <- rownames_to_column(USArrests, var = "state") # 행 이름을 state 변수로 바꿔 데이터 프레임 생성 
+crime$state <- tolower(crime$state) # 지도 데이터와 동일하게 맞추기 위해 state의 값을 소문자로 수정 
+
+library(ggplot2) 
+states_map <- map_data("state") 
+str(states_map) 
+
+3.단계 구분도 만들기(인터랙티브 )
+ggChoropleth(data = crime, # 지도에 표현할 데이터 
+			aes(fill = Murder, # 색깔로 표현할 변수 
+			map_id = state), # 지역 기준 변수 
+			map = states_map, # 지도 데이터 
+			interactive = T) # 인터랙티브 
