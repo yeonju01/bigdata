@@ -1,0 +1,75 @@
+## 리스트 
+: []로 만들어 여러개 값을 저장
+인덱스(0부터 시작), 슬라이싱 사용가능
+
+변수명= [ ... ] : 1차원리스트
+변수명= [ [ ... ], ... ] : 2차원리스트
+
++ : 두 리스트를 연결
+* : 리스트를 곱한 수 만큼 반복
+
+listData = [ ]
+len(listData)
+mix(listData), max(listData)
+listData[start:stop:step] : start부터 stop까지 step번째 데이터 부분추출 (stop위치의 항목은 포함안됨)
+
+listData.append(value)
+listData.extend(newList)
+listData.insert(index, value) : position위치 이후 value의 값이있는 인덱스를 반환
+
+listData.count(value) : 리스트에서 데이터의 개수를 반환
+listData.index(value, position=0) : position위치이후에서value의값이있는인덱스를반환(항목이 없을 시 에러)
+(ex) 다차원 리스트에서 인덱스 이용 시 차원별로 인덱스 지정
+a = [1, 2, [‘a’, ‘b’, [‘hello’, ‘world’]]]
+print(a[2][2][0])
+결과 : hello
+
+listData.clear() : 리스트의 모든 항목 삭제
+listData.remove(value) : 해당 항목 삭제
+del listData[index] : 지정 위치 항목 삭제, 변수 삭제
+listData.pop() : 맨 마지막 항목을 반환하고 삭제
+
+listData.reverse() : 리스트 항목을 역순으로 나열
+listData[::-1] : 리스트 항목을 역순으로 출력(원본데이터는 그대로)
+listData.sort(reverse=False) : 정렬(reverse속성을 True로하면 내림차순 정렬)
+
+new_listData = listData.copy() : 복제된 새로운 객체 생성
+new_listData = listData : 주소를 복사해 같은 객체를 참조
+
+## 튜플
+: ()로 만들어 여러개 값을 저장 ; 하나인 경우 , 붙임 (ex) tupleData = ( 1, )
+데이터 수정 불가
+
+tupleData = ()
+len(tupleData)
+mix(tupleData), max(tupleData)
+tupleData.count(value)
+tupleData.index(value, position)
+
+## 딕셔너리
+: {}로 만들어 여러개 값을 저장, 키와 값이 쌍으로 구성된 자료구조
+키는 중복없이 유일한 값, 키에 튜플 사용가능, 키 목록에 없는 데이터로 참조하면 에러
+인덱스 사용 불가
+
+dictData = {‘key’:’value’, …}
+len(dictData)
+dictData.items() : 각 항목을 (key, value)형식 튜플로 반환
+dictData.keys() : key들을 반환
+dictData.values() : value들을 반환
+
+## 셋
+: {}로 만들어 여러개 값을 저장
+순서 없음, 중복 불가
+
+## enumerate
+: 반복자(iterator), 순서(sequence) 객체를 인수로 받음
+
+(ex) 객체를 (0, 객체[0]), (1, 객체[1]), (2, 객체[2]), … 형식으로 반환
+fruits = [‘orange’, ‘mango’, ‘banana’]
+for index, value in enumerate(fruits):
+	print(“{}번째 데이터는 {}입니다.”.format(index+1, value))
+결과:
+1번째 데이터는 orange입니다.
+2번째 데이터는 mango입니다.
+3번째 데이터는 banana입니다.
+
