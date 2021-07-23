@@ -1,0 +1,136 @@
+## 함수
+: 입력 값을 받아 다른 값을 출력하도록 만들어 둔 것, 반복 사용할 코드들
+정의(define):
+def 함수명([매개변수1, 매개변수2, …]): # 매개변수 없는 경우 def 함수명()
+	‘’’docstring’’’
+	함수가 실행할 블록
+
+호출(call):
+함수명(인수1, 인수2, …)
+print(함수명.__doc__) # 독스트링 확인
+
+(ex)전역변수 수정
+g_var1 = 100 # 전역변수
+def func1():
+	global g_var1 # 전역변수 g_var1 사용선언(없을 경우 Lexical 특성으로 인해 오류)
+	print(‘수정전’ , g_var1)
+	g_var1 = 200 # 지역변수
+	print(‘수정후’ , g_var1)
+func1()
+결과: 
+수정전 100
+수정후 200
+
+(ex)함수 이름 변경
+f = func
+f = func(100) # func 리턴값이 없음, 실행 결과 저장안됨
+
+## 함수 실행결과 return
+def 함수명(매개변수): 
+	함수가 실행할 블록
+	return 실행한 결과 리턴값(변수이름,표현식)
+
+(ex)여러개의 값 반환
+def swap(a,b):
+	return b,a
+a=swap(1,2) # 튜플에 저장
+print(a)
+결과: (2, 1)
+
+## 함수 매개변수
+1.인수에 기본값 지정
+(ex)가변인수
+def make_url(ip, port=80): # port는 가변인수, 기본값 지정
+	return “http://{}:{}”.format(ip, port)
+
+(ex)매개변수 기본값으로 변수이름을 가질 수 있음(함수 정의지점에 기본값 평가)
+i = 5
+def func2(arg=i):
+	print(arg)
+i = 6 # 함수 호출시 지정되지 않았으므로 반영되지 않음
+func2()
+결과: 5
+
+(ex)키워드 인수
+def func4(a, L=None):
+	if L is None:
+		L = []
+	L.append(a)
+	return L
+list_ = []
+func4(30, list_) # func4(L=list_, a=30) 
+결과 : [10, 20, 30]
+func4(30) # func4(a=30)
+결과 : [30]
+func4(30, a=60), func4(L=list_, 30)  #필수인수 a의 이름을 제대로 지정하지 않거나 a를 포함하지 않으면 에러, 키워드 인수는 순서인수 뒤에와야 함
+결과 : 에러
+
+(ex)튜플 매개변수를 이용하여 가변인수 설정 (*args)
+def add(*args):
+	sum = 0
+	for num in args:
+		sum = sum + num
+	return sum
+add(10,20,30)
+결과: 60
+
+(ex)튜플 인수 순서
+def concat(sep, *args)
+	return sep.join(args)
+concat(“/”, “a”, ”b”, “c”)
+결과: a/b/c
+
+(ex)딕셔너리 인수 (**data)
+def func6(a, b, *c, **d): # 순서인수a,b , 키워드인수 c(튜플 가변인수), 딕셔너리인수d
+	print(a)
+	print(b)
+	print(c)
+	print(d)
+func6(10, 20, 1, 2, 3, name=‘KilDong’, age=20)
+결과: 
+10
+20
+(1, 2, 3)
+{‘name’ : ’KilDong’, ‘age’ : 20}
+
+(ex)튜플 인수 언패킹(인수의 값을 모두 더하는 함수)
+def add(*args):
+	sum = 0
+	for num in args:
+		sum = sum+num 
+	return sum
+numbers = (1,2,3,4,5) # 튜플인 numbers를 add함수의 인수로 넣을 수 없음
+add(*numbers) # 언패킹하여 add함수 인수로 넣을
+결과: 15
+
+(ex)딕셔너리 인수 언패킹
+def func5(**data):
+	for item in data.items():
+		print(item)
+cus = {‘name’ : ’KilDong’, ‘age’ : 20}
+func5(**cus)
+결과:
+(‘name’, ’KilDong’)
+( ‘age’, 20)
+
+## 람다식	: lambda 한 문장만 작성 가능한 작은 익명함수(return구문 없음)
+lambda 인수 : 함수가 실행할 블록
+(ex)리턴문 함수에 람다식 사용
+def incrementor(n):
+	def add(a): # 일반 함수
+		return a+n
+	return add
+f = ncrementor(10)
+f(5)
+결과: 15
+
+def incrementor(n):
+	return lambda x : x+n # 람다식
+f2 = ncrementor(10)
+f(5)
+결과: 15
+
+(ex) 작은 함수를 인수로 전달
+data = [1,2,3,4,5]
+list(filter(lambda x : x%2==0, data))
+결과 : [2, 4]
