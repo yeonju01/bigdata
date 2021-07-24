@@ -1,0 +1,55 @@
+## 파이썬 내장함수
+: import하지 않고 즉시 사용 가능한 함수
+
+1.입출력 관련 함수
+print(x) : 객체를 문자열로 표시
+input([prompt]) : 사용자 입력을 문자열로 반환
+help([x]) : x에 대한 도움말 출력
+globals() : 전역변수 리스트 반환
+locals(), vars() : 지역변수 리스트 반환
+del(x), del x : 객체를 변수에서 삭제
+eval(expr) : 값을 구함
+exec(obj) : 파이썬 명령 실행
+open(filename[,mode]) : 파일 열기
+
+2.기본자료형 생성, 변환 함수
+object() : 새로운 object생성(base)
+bool(obj) : 객체의 진리값 반환
+Int(obj) : 문자열 형태의 숫자나 실수를 정수로 변환
+float(obj) : 문자열 형태의 숫자나 정수를 실수로 변환
+complex(re [, img]) : 문자열이나 주어진 숫자로 복소수 생성
+
+3.기본자료형의 정보 반환 함수
+type(obj) : 객체의 형태 반환
+dir(obj) : 객체가 가진 함수,변수들을 리스트 형태로 반환
+repr(obj) : 문자열 생성(evla()함수로 다시 복원 가능)
+ascii(obj) : 문자열 생성 non-ascii문자는 escape
+id(obj) : 객체의 고유번호 반환
+hash(obj) : 객체의 해시값 반환
+chr(num) : ASCII값을 문자로 반환
+ord(str) : 한 문자의 ASCII값을 반환
+isinstance(obj, className) : 객체가 클래스의 인스턴스인지 여부 반환
+issubclass(class, classing) : class가 classinfo의 서브 클래스인 경우 True반환
+
+4.열거형 정보를 반환하는 함수
+len(seq) :시퀀스형의 길이 반환
+iter(obj [,sentinel] : 객체의 iterator 반환
+next(iterator) : iterator의 현재요소 반환하고 포인터 하나 넘김
+enumerate(iterable, start=0) : iterable에서 enumerate형을 반환
+sorted(iterable[,key][,reverse] : 정렬된 리스트를 반환
+reversed(seq) : 역순으로 된 iterator반환
+filter(func, iterable) : iterable 요소 중 func() 반환 값 True인 것만 묶어서 iterator로 반환
+map(func, iterable): iterable 요소를 func() 반환 값으로 매핑하여 iterator로 반환
+
+5.산술/논리 연산과 관련된 함수
+hex(n) : 정수n의 16진수 값을 문자열 반환
+oct(n) : 정수n의 8진수 값을 문자열 반환
+bin(n) : 정수n의 2진수 값을 문자열 반환
+abs(n) : 절대값 반환(복소수는 크기 반환)
+pow(x, y [,z]) : 거듭제곱 pow(x,y) = x**y
+divmod(a,b) : a를 b로 나눈 (몫, 나머지) 튜플 반환
+all(iterable) : iterable의 모든 요소가 True인 경우 True 반환
+any(iterable) : iterable의 하나 이상의 요소가 True인 경우 True 반환
+max(iterable), max(arg1, arg2, …) : 최대값 반환
+min(iterable), min(arg1, arg2, …) : 최소값 반환
+round() : 반올림하여 반환
