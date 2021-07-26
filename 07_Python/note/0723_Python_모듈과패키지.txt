@@ -1,0 +1,55 @@
+## 파이썬 모듈
+: 함수 또는 변수의 정의와 문장을 파일에 담은 것, 스크립트 또는 인터프리터의 대화영 인스턴스에서 사용함 (확장자 : .py)
+
+-표준 모듈 : 인터프리터 내장형, 기본 플래폼 종속형 약 200여개
+string, data, time, math, fractions, random, file, salite3, os, sys, …
+( 파이썬 표준 라이브러리 레퍼런스 : 
+https://docs.python.org/3/library/index.html, https://pypi.org )
+
+-모듈 사용
+import 모듈명 : 임포트 (해당 이름을 가진 내장모듈 검색, sys.path변수에 지정된 디렉토리들 검색)
+모듈명.모듈함수() : 사용
+
+sys.path.insert(index, path) 또는 sys.path.insert(path)로 디렉토리 추가
+sys.path.remove(path) 로 디렉토리 제거
+
+# 패키지는 directory, 모듈은 .py
+from 모듈명 import 함수명 / from 모듈명 import *
+import 모듈명 as 모듈별칭
+
+print(dir(모듈명)) : 모듈이 정의한 이름들을 정렬된 문자열들로 반환
+
+(ex) 모듈 실행
+if __name__ == “__main__”:
+	import sys
+	모듈명(int(sys.argv[1]))
+python 모듈명.py
+
+## 패키지
+: 파이썬 모듈 네임 스페이스를 구조화 (모듈명 A.B ; A라는 패키지에 B라는 서브모듈)
+
+(ex)패키지 디렉토리의 구조 및 코드
+sample_pac/
+	+ __init__py
+	+ ab/
+		+ __init__py
+		+ a.py
+		+ b.py
+
+-패키지 사용
+import 패키지명 : 임포트 (상위 패키지를 import해도 하위 패키지는 로드되지 않음)
+import sys
+sys.path.append(path)로 패키지 경로 추가
+
+from 패키지명 import 모듈명 / from 패키지명 * (__init__.py 에 __all__속성으로 모듈의 목록을 정의 시 가능)
+from 패키지명.모듈명 import 함수명 
+from .. 패키지명 import 함수명 (상대적인 가져오기)
+import 패키지명 as 패키지별칭
+
+-패키지 설치/ 삭제
+pip install 패키지명/ conda install 패키지명
+python -m pip install whl파일명
+
+conda list 패키지명
+conda remove 패키지명
+pip uninstall 패키지명
