@@ -1,0 +1,79 @@
+## 클래스
+: 객체(데이터, 변수, 필드, 속성 / 행위, 함수, 메소드, 기능)를 만들기 위한 틀
+class 클래스명:
+	클래스 내용
+(ex)객체 생성
+p1 = Person()
+
+(ex)인스턴스 메소드(self객체를 통해 참조하는 메소드)
+class Person:
+	name = “홍길동”
+	gender = “남자”
+	def print_info(self): # 인스턴스 메소드는 첫번째 인자 self
+		print(“Person 객체입니다”)
+	@classmethod
+	def do_(cls): # 클래스 메소드는 인자 cls
+		print(“이름 : {}, 성별 : {}”.format(cls.name, cls.gender))
+	@staticmethod
+	def that_(): # static 메소드
+		print(“이름은 {}, 성별은 {}입니다”.format(Person.name, Person.gender)
+
+p1 = Person() # p1객체 만듬
+p1.print_info()
+결과: Person 객체입니다
+Person.do_() # 객체없이 클래스 이름으로 참조 가능
+결과: 이름 : 홍길동, 성별 : 남자
+Person.that_() # 객체없이 클래스 이름으로 참조 가능
+이름은 홍길동, 성별은 남자입니다
+
+## 생성자와 소멸자
+class Person:
+	def __init__(self, name, gender): # 생성자 __init__로 인스턴스 변수 초기화(생성자는 중복정의 불가)
+		print(“Person 객체를 생성합니다.”)
+		self.name = name
+		self.gender = gender
+	def __del__(self): # 소멸자 __del__은 인스턴스 객체의 레퍼런스 카운트가 0일때 실행
+	def __str__(self):
+		return “name: {}, gender: {}”.format(self.name, self.gender)
+	def print_info(self):
+		print(“{}님은 {}입니다”.format(self.name, self.gender))
+
+p1 = Person(“홍길동”, “남자”)
+결과: Person 객체를 생성합니다.
+p1.print_info()
+결과: 홍길동님은 남자입니다
+del p1 # del 명령으로 변수를 삭제
+
+## 상속과 재정의
+: 부모클래스의 모든 속성들을 자식클래스로 물려줌
+class 자식클래스명(부모클래스명):
+
+(ex) 부모클래스의 생성자를 인스턴스 변수 초기화
+class Student(Person):
+	def __init__(self, name, gender, major):
+		Person.__init__(self, name, gender)
+		self.major = major
+s1 = Student(“마길동”, “남자”, “경제학”)
+s1.print_info()
+결과: 마길동님은 남자입니다
+
+(ex) 부모클래스의 함수 재정의
+class Student(Person):
+	def __init__(self, name, gender, major):
+		Person.__init__(self, name, gender)
+		self.major = major
+	def __del__(self):
+		pass
+	def __str__(self): # super()로 부모클래스 멤버 참조
+		return super().__str__() + “, major:{}”.format(self.major) 
+	def print_info(self):
+		print(“{}님은 {}이고, 전공은 {}입니다”.format(self.name,  self.gender, self.major))
+issubclass(Student, Person)
+s2 = Student(“마길동”, “남자”, “경제학”)
+s2.print_info()
+결과: 마길동님은 남자이고, 전공은 경제학입니다
+print(s2)
+결과: name: 마길동, gender: 남자, major: 경제학
+
+클래스 변수명 앞에 __
+: 클래스명.클래스명__변수명 형식으로 참조하면 클래스 내 메소드에서 동일한 이름으로 참조 가능
