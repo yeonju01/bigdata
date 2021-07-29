@@ -1,0 +1,73 @@
+## 예외처리
+: Exception Handling 실행중에 오류 발생 가능성이 있는 부분에 대처하여 미리 프로그래밍 하는 것
+
+1.파일이 없거나 쓰기 금지로 인한 오류
+2.데이터베이스 프로그래밍 시 제약조건 등에 의한 데이터베이스 서버오류
+3.네트워크 프로그래밍 시 네트워크 연결 실패로 인한 오류
+4.리스트 또는 튜플의 인덱스를 벗어난 참조로 인한 오류
+5.0으로 나누려는 오류
+...
+
+(ex)유효한 정수가 입력되면 try블록의 나머지 문장 실행 (예외 지정 처리, 예외 별 처리)
+while True: 
+	try:
+		x = int(input('정수를 입력하세요: '))
+		print('입력한 정수는 {}입니다.'.format(x))
+		print('100을 입력한 수로 나누면 {}입니다.'.format(100/x))
+		break
+	except ValueError: # 예외 이름은 생략가능(ValueError 생략가능)
+		print('유효한 정수가 아닙니다.')
+	except ZeroDivisionError:
+		print('0으로 나눌 수 없습니다.')
+
+-> 예외를 튜플로 지정 가능
+except (ValueError, ZeroDivisionError):
+	print('유효한 수가 아닙니다. 다시 시도하세요.')
+
+(ex)else절로 예외 처리 (else절은 except절 다음에 위치)
+try:
+	f = open('file.txt', 'r')
+except FileNotFoundError as e: # 예외 관련 정보 조회가능(예외객체변수에 instance.args존재)
+	print('예외유형', type(e))
+	print('예외메세지', e.args)
+	print('예외', e)
+else:
+	data = f.read()
+	print(data)
+
+(ex)raise명령문으로 지정한 예외를 발생
+Def insert(data): # 피호출자
+	if len(data)==0:
+		raise Exception('길이가 0입니다')
+	print(data, '을(를) 입력합니다', sep=' ')
+
+data=[] # 호출자
+try:
+	insert(data)
+except Exception as e
+	print(e.args[0])
+else:
+	print('정상 실행 되었습니다')
+결과: 길이가 0입니다.
+
+## 추상클래스, 추상메소드
+: 파이썬에는 추상클래스와 추상메소드를 위한 키워드가 없지만, 표준을 정하기위해 raise로 정의 가능
+
+(ex)raise로 추상메소드 정의 : 추상메소드를 갖는 클래스는 객체 생성 불가(자식클래스에서 재정의하여 사용)
+class Shape:
+	def __init__(self):
+		raise NotImplementError
+	def calc_area(self): # 추상메소드
+		raise NotImplementError
+
+class Circle(Shape): 
+	def __init__(self, radius):
+		self.radius = radius
+	def calc_area(self):
+		return self.radius * self.radius * 3.14
+		
+
+myCircle = Circle(4,5)
+myCircle.calc_area() # calc_area를 재정의 하지 않고 추상메소드 실행 시 예외발생 (NotImplementError)
+결과: 63.585
+
