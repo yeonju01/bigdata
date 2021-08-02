@@ -1,0 +1,87 @@
+## NumPy(넘파이)
+: 파이썬을 사용한 과학 컴퓨팅 기본 패키지, 주요 객체는 모든 데이터가 같은 타입인 다차원 배열
+
+a.ndim : 배열의 축 수(차원)
+a.shape : 각 차원의 배열 크기를 나타내는 정수 타입의 튜플. shape는(n, m) 형태. 행렬은 n개의 행과 m개의 열. shape 튜플의 길이는 축의 수(ndim)
+a.size : 배열 요소들의 총 수. shape의 각 요소의 곱과 동일
+a.dtype : 배열 내의 요소의 타입. 파이썬의 기본타입 또는 넘파이의 타입(numpy.int32, numpy.int16, numpy.float64 등)을 이용해 지정
+a.itemsize : 배열의 각 요소의 바이트 단위 사이즈(= a.dtype.itemsize)
+type.(a) : <type|’bumpy.ndarray’>
+
+## 넘파이 배열 만들기
+1.array() 이용
+(ex)
+import bumpy as np
+a = np.array([2,3,4])
+a
+결과: array([2,3,4])
+
+2.기본값이 있는 배열 만들기
+(ex)np.zeros(), np.empty(), np.ones()
+np.zeros((2,3)) # np.empty()는 초기내용 임의로 메모리 상태에 따라 달라지는 배열
+결과: array([[0., 0., 0.],
+		   [0., 0., 0.]])
+np.ones((2,2,3), dtype=np.int16)
+결과: array([[1, 1, 1],
+	           [1, 1, 1]])
+
+		  [[1, 1, 1],
+	           [1, 1, 1]], dtype=int16)
+
+3.연속된 값을 갖는 배열 만들기
+(ex) numpy.arange([start, ]stop, [step, ]dtype=None)
+np.arange(0, 2, 0.3)
+결과: array([0. , 0.3, 0.6, 0.9, 1.2, 1.5, .18])
+
+(ex) bumpy.linspace(start, stop, num=50) # 수가 많은 점들을 생성할 때 유용
+x = np.linspace(0, 2*np.pi, 100)
+f = np.sin(x)
+
+4.배열의 차원 변경
+(ex)
+a= np.floor(10*np.random.random( (3,4) )) # 랜덤숫자 3행4열 배열
+a.resize( (2,6) )
+a.reshape(3, -1) # reshape에서 크기가 -1이면 해당 차원의 크기는 자동계산
+a.T # 전치행렬 반환(행,열 거꾸로)
+
+5.배열 인쇄하기
+: 1차원은 행, 2차원은 행렬, 3차원은 행렬목록
+(ex)
+c = np.arange(11).reshape(2,3,2)
+print(c)
+결과: # 2행 3열 2차원 배열
+[[[0 1 2]
+   [3 4 5]]
+
+  [[6 7 8]
+   [9 10 11]]]
+
+numpy.set_printoptions(threshold=None) # 전체배열 인쇄 ; threshold=인쇄할 갯수
+
+- 산술연산자(+, -, *, **, <, …)는 요소별로 적용
+- 복합대입연산자(+=, *=, …)는 기존배열 수정에 사용(새 배열 생성불가)
+- 행렬의 곱은 dot() 또는 @연산자 사용
+- 배열요소 집계(sum(), min(), max()…)는  ndarray클래스 메소드 사용
+- 축을 지정한 집계는 axis사용 : (axis=0)행,열이 같음 면을 따라 (axis=1)면,열이 같음 행을 따라 (axis=2)면,행이 같음 열을 따라 
+
+6.범용함수
+: 배열 데이터의 연산, 형변환 등. 표준기능을 지원하는 넘파이배열(ndarrays) 에서 작동하는 함수
+범용함수(exp(), sqrt(), …)는 각 요소마다 적용
+nfunc()
+memory_profiler패키지로 메모리 사용량 측정 : 셀 맨 위에 %%time
+
+7.브로드캐스팅
+: 연산의 두 배열에 대한 후미 축의 크기가 동일한 크기이거나 둘 중 하나가 1인 경우 사용가능
+np.add(alb) # a*b
+np.multiply(a,b) # a+b
+
+(ex)배열의 바깥 쪽 작업을 수행
+from bumpy import array, newaxis
+a = array([0.0, 10.0, 20.0, 30.0])
+b = array([1.0, 2.0, 3.0])
+a[: ,newaxis] + b
+결과:
+array([[1., 2., 3.],
+	   [11.,12.,13.],
+	   [21.,22.,23.],
+	   [31.,32.,33.]])
