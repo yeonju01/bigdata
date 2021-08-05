@@ -1,0 +1,146 @@
+## 데이터 시각화
+: 원본 데이터 또는 분석된 결과 데이터를 그래프로 표현하는 것 
+	시각화 라이브러리 matplotlib, seaborn, plotnine, folium, poly.ly, pyecharts 
+1.Matplotlib(2D그래프 라이브러리)
+(pyplot 함수들참고 : https://matplotlib.org/stable/api/pyplot_summary.html. 
+
+import matplotlib
+import matplotlib.pyplot as plt
+%matplotlib inline
+%config InlineBackend.figure_format = ‘retina’
+
+(ex)subplot()로 서브플롯 추가
+import numpy as np
+import matplotlib.pyplot as plt
+x = np.arange(0, 10, 0.01)
+
+plt.subplot(2, 1, 1); plt.plot(x, np.sin(x)) 
+plt.subplot(2, 2, 3); plt.plot(x, np.cos(x))
+plt.subplot(2, 2, 4); plt.plot(x, np.sin(x)*np.cos(x))
+plt.show()
+결과 : 1열, 2열1행, 2열2행 서브플롯에 각각 그래프 출력
+
+(ex)subplots()로 서브플롯 집합 추가
+import numpy as np
+import matplotlib.pyplot as plt
+x = np.arange(0, 10, 0.01)
+
+fig, axes = plt.subplots(nrows=2, ncols=2)
+axes[0,0].plot(x, np.sin(x)); axes[0,1].plot(x, np.cos(x)
+axes[1,0].plot(x, np.tanh(x)); axes[1,1].plot(x, np.sin(x)*np.cos(x))
+plt.show()
+결과 : 1,2,3,4번 서브플롯에 각각 그래프 출력
+
+fig, axes = plt.subplot(nrow=4)
+for i, ax in enumerate(axes.flat):
+	ax.plot(x, func_list[i](x))
+plt.show()
+결과 : 1,2,3,4행 서브플롯에 각각 그래프 출력
+
+(ex) plot() 으로 그래프 그리기
+import numpy as np
+fig, axes = plt.subplots(2, 2, figsize=(8,5))
+fig.suptitle(“Sample”) # 타이틀 
+axes[0,0].plot([1,2,3,4], ‘ro-’)
+axes[0,1].plot(np.random.randn(4,10), np.random.randn(4,10), ‘cs-.’)
+axes[1,0].plot(np.linspace(0,5), np.cos(np.linspace(0,5)))
+axes[1,1].plot([3,6] ,[3,5], ‘b^:’)
+axes[1,1].plot([4,5], [5,4], ‘kx—‘)
+plt.show()
+결과: 1행1열(y가 1,2,3,4값을 가지는 그래프), 1행2열(x는 -2과 2, y는-1과 3 사이 랜덤한 그래프)
+2행1열(cos그래프) 2행2열(파란색 점선그래프 위에 검은색 대쉬그래프)
+
+(ex) pandas.DataFrame.plot() 으로 그래프 그리기
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+iris = sm.datasets.get_rdataset(‘iris’, package=‘datasets’) # 데이터셋에 있는 iris불러옴
+iris_df = iris.data
+iris_df.head()
+
+iris_df.plot()
+결과 : iris 각 열별 선 그래프
+
+iris_df.corr() # 상관계수 출력
+iris_df.plot(x=‘Petal.Length’, y=‘Petal.Width’, kind=‘scatter’) # s(사이즈), c(컬러), alpha(투명도) 지정 가능
+결과 : Petal.Length와 Petal.Width의 상관관계 산점도 그래프
+
+(ex) 다양한 그래프 그리기(데이터 분포 확인)
+fig, axes = plt.subplots(2, 2) #nrows=2, ncols=2
+axes[0,0].bar([1,2,3], [3,4,5]) # 수직 막대그래프
+axes[0,1].barh([1,2,3], [3,4,5]) # 수평 막대그래프
+axes[1,0].axvline(0.6) # 수평선
+axes[1,1].axhline(0.4) # 수직선
+
+fig, axes = plt.subplots(2, 2) 
+axes[0,0].hist(iris_df[‘sepal_length’], bins=10, color=‘r’) # 빨간 히스토그램 그래프(막대10개)
+axes[0,1].hist(iris_df[‘sepal_length’], bins=15, cumulative=True) # 정렬된 히스토그램 그래프(막대15개)
+axes[1,0].hist(iris_df[‘sepal_length’], bins=5, orientation=‘horizontal’) # 수평 히스토그램 그래프
+axes[1,1].hist(iris_df[‘sepal_length’], bins=10, histtype=‘step’) # 계단식 히스토그램 그래프
+
+fig, axes = plt.subplots(1, 2)  
+axes[0].boxplot(iris_df[‘sepal_length’]) # 박스플롯(사분위수 그래프)
+axes[1].violinplot(iris_df[‘sepal_length’]) # 바이올린 플롯
+
+(ex) 다양한 그래프 커스터마이징
+fig, axes = plt.subplots(1, 2)  
+axes[0].fill(x, y, c=‘blue’) # 파란색 채워진 그래프
+axes[1].fill_between(x, y, color=‘red’) # 빨강색 채워진 그래프
+
+fig, axes = plt.subplots(2, 2, figsize=(10,5))
+plt.subplots_adjust(hspace=0.4, wspace== 0.3) # 상하 여백 0.4, 좌우 여백 0.3
+plt.suptitle(‘Main Title’) # 메인 타이틀
+axes[0,0].scatter(x, y, marker=‘*’) # 마커가 *인 산점도 그래프
+axes[0,0].set(title=‘Sample’, ylabel=‘Y’, xlabel=‘X’) # axes[0,0]의 타이틀 Sample, y축라벨 Y, x축라벨 X
+axes[0,0].text(2, 0, ‘Example’, style=‘italic’) # 위의 그래프(2,0)위치에 Example 텍스트 삽입
+axes[0,1].plot(x, y, linestyle=‘dotted’, linewidth=7, color=‘#FF00FF’) # 라인 두께7, 점선  마젠타색 그래프
+axes[0,1].annotate(’Example’, xy=(3, 0.5), xytext=(2, 1), 
+					arrowprops=dict(arrowstyle=‘->’, connectionstyle=‘angle3’))# (2, 1)위치에 텍스트,(3, 0.5)위치에 화살표 
+axes[1,0].plot(x, y, ls=‘—‘, c=‘r’, lw=3) # 라인 두께3, 대쉬 빨간색 그래프
+axes[1,1].plot(x, y, ‘b.’) # 라인 1픽셀 파란색 그래프 
+
+ax.text(3, 0..5, r”$\sum_{i=0}^\infty X_i$”, fontsize=20) # 그래프에 수학기호 넣기
+
+(ex) 축과 눈금
+axes[0,1].scatter(x, y)
+axes[0,1].set_xlim(0, 5) # x축 0에서5까지만 보이게
+axes[0,1].set_ylim(-2, 2) # y축 -2에서2까지만 보이게
+axes[0,1].set_xlabel(‘X 0~5’) # x라벨
+axes[0,1].set_ylabel(‘Y -2~2’) # y라벨
+
+axes[1,0].scatter(x, y)
+axes[1,0].set_xticks(range(1,8,2)) # 해당 x축 값만 보임
+axes[1,0].set_xticklabels([3, 100, -12, ‘foo’]) # x축에 보이는 값들에 라벨 지정
+axes[1,0].set(yticks([-2, -, 1, 2], # 해당 y축 값만 보임
+			yticklabels([-200, 0, 100, ’Max’]) # y축에 보이는 값들에 라벨 지정
+axes[1,0].spines[‘top’].set_visivle(False) # top의 선 없앰
+axes[1,0].spines[‘bottom’].set_position((‘outward’, 10)) # bottom의 선 10만큼 바깥으로
+axes[1,0].grid(True) # 배경에 그리드 생성
+
+(ex) 축 공유 : 하나의 그래프 영역에 두 개 이상의 그래프를 그릴 때 twinx(), twiny() 함수 
+로 새로운 축을 생성
+
+fig, ax1 = plt.subplots()
+ax1.plot(x, y1m ‘g^:’)
+ax1.set_xlabel(‘X data’) # 하(기본값)
+ax1.set_ylabel(‘Y data’, color=‘g’) # 좌(기본값)
+
+ax2 =ax1.twinx()
+ax2.plot(x, y2, ‘bv—’)
+ax2.set_ylabel(‘Y data’, color=‘b’) # 우
+
+ax3 =ax1.twinx()
+ax3.plot(-x, y1, ‘ro-.’)
+ax3.set_xlabel(‘-X data’, color=‘r’) # 상
+
+(ex) 그래프에 범례 표시
+ax1.plot(x, y, label=‘GREEN’)
+ax1.plot(x, -y, label=‘BLUE’)
+ax1.legend() # plot() 함수가 label 속성을 가질 경우 legend() 함수의 호출만 으로 범례를 표시
+
+ax1.plot(x, y)
+ax1.plot(x, -y)
+ax1.legend(labels=[‘GREEN’, ‘BLUE’] # legend() 함수의 labels 파라미터를 이용해서 범례의 레이블(이름)을 지정 
+
+(ex) 그래프 저장
+plt.savefig(“저장할 파일명.png”)
