@@ -1,0 +1,107 @@
+## 기초 통계 분석
+: 판다스에서 제공하는 통계분석은 기본적 기술통계, 데이터 요약
+count(NA를 제외한 갯수), min, max, sum, 
+cumprod(누적합), mean, median(중위수), 
+quantile(분위수), corr(상관계수), var(분산), std(표준편차), cov(공분산)
+
+## 요약 통계량
+숫자 데이터 : 결과 인덱스에는 count, mean, std, min, max, 하위 백분위수, 상위 백분위수
+객체 데이터 : 결과 인덱스에는 count, unique, top, freq
+혼한 데이터(DataFrame) : 기본적으로 숫자 열의 분석만 반환, 데이터프레임에 숫자열이 없는 경우 기본적으로 개체열과 범주형 열 모두의 분석을 반환
+
+(ex) 요약 통계량
+import statsmodel.api as sm
+iris = sm.datasets.get_rdataset(“iris”, package=“datasets”) # R 데이터셋에서 불러오기
+iris_df = iris.data
+
+iris_df.descrive()
+결과: Species정보는 출력되지 않은 iris데이터의 요약 통계량
+iris_df.Species.descrive()
+결과: Species 데이터의 요약 통계량
+iris_df.descrive(include=‘all’)
+결과: iris데이터의 각 유형의 속성 결합
+
+## 데이터 그룹화
+groupby() : 열 값을 이용하여 데이터를 그룹화
+
+(ex) Species인수로 그룹화
+iris_groupde = iris_df.groupby(iris_df.Species)
+iris_grouped.mean()
+결과: iris의 Species 데이터를 기준으로 각각 평균값
+
+(ex) 다중 열로 그룹화
+iris_grouped2 = iris_df.groupby([iris_df_Species, iris_df[“Sepal.Length”]])
+iris_grouped2.mean().head()
+결과: iris의 Species와 Sepal.Length  데이터를 기준으로 각각 평균값
+
+(ex) 그룹간 반복처리
+iris_groupde = iris_df.groupby(iris_df.Species)
+for type, group in iris_grouped:
+	print(type, ‘\n’, group)
+결과: iris의 Species 데이터를 기준으로 각각 그룹의 타입과 그룹 객체들을 반환
+
+## 데이터 구조 변경
+와이드 포맷 : 가로로 긴 형식의 데이터 구조, 피벗테이블(pivot table)
+롱 포맷 : 세로로 긴 형식의 데이터 구조, 언피벗테이블
+
+(ex) melt()로 언피벗팅 : 열 이름은 variable, 열 값을 value에 저장
+import statsmodels.api as sm
+airquality_data = sm.datasets.get_rdataset(“airquality”)
+airquality = airquality_data.data
+
+airquality_melted = airquality.melt(id_vars=[‘Month’, ‘Day’])
+airquality_melted.head()
+결과: 언피벗팅 된 airquality 데이터(Month, Day 열 고정)
+
+(ex) pivot_table()로 피벗팅
+airquality2 = airquality_melted.pivot_table(index=[’Month‘, ‘Day’],
+							columns=[‘variable’], values=[‘value’])
+airquality2.head()
+결과: 다중 인덱스를 갖는 airquality2 데이터 프레임 출력
+
+airquality2 = airquality2.reset_index(level=[‘Month’, ’Day’]. col_level=1)
+airquality2.columns = airquality2.columns..droplevel(level=0)
+airquality2.head()
+결과: 피벗팅 된 airquality2 데이터(인덱스를 제거하고 출력)
+
+## apply() : 데이터 프레임에 함수 적용 
+(ex) 시리즈 사용
+import numpy as np
+iris_df.iloc[:, :-1].apply(np.average).head()
+결과: 넘파이의 average함수를 변수 별로 동작하여 시리즈 객체로 평균값 출력, 마지막 열 제외
+
+(ex) 람다식 사용
+iris_df2.apply(lambda x : x-iris_avg, axis=1, result_type=‘broadcast’).head()# result_type=‘broadcast’ 매개변수는 원 데이터의 열이름과 구조를 그대로 유지함
+결과: iris의 열별 -평균값을 반환하는 데이터프레임
+
+(ex) applymap()으로 각 요소별 작동
+iris_df2.applymap(lambda x : x**2, na_action=‘ignore’).head() # na_action=‘ignore’ 매개변수로 None값이 있으면 NaN으로 처리
+결과: iris의  변수 별로 제곱한 데이터프레임 반환
+
+## 사용자 정의 함수
+(ex) map()으로 my_func 적용하기
+import pandas as pd
+x = pd.Series([‘Hello’, ‘World’], index=[1,2])
+def my_func(data):
+	return (data, len(str(data)))
+x.map(my_func)
+결과:
+(Hello, 5)
+(World, 5)
+dtype: object
+
+(ex) map()으로 딕셔너리에 적용 : 키 값에 적용됨
+z = {“Hello”:”A”, “World”:”B”}
+x.map(z)
+결과 : 
+A
+B
+dtype: object
+
+(ex) map()으로 시리즈에 적용 : 인덱스 별로 적용됨
+y = pd.Series([‘foo’, ‘baz’], index=[‘Hello’, ‘World’])
+x.map(y)
+결과 : 
+foo
+baz
+dtype: object
