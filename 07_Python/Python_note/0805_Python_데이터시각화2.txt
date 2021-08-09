@@ -1,0 +1,66 @@
+## Seaborn
+: matplotlib 기반으로 만들어진 고수준 그래프 라이브러리 (공식사이트: https://seaborn.pydata.org/)
+관계형, 범주형, 분포, 회귀, 행렬과 관련된 그래프 함수 제공
+
+(ex) 데이터 로드
+iris = sns.load_dataset(“iris”)
+titanic = sns.load_dataset(“titanic”)
+
+(ex) 그래프 영역 설정
+import matplotlib.pyplot as pat
+import seaboard as sns
+%matplotlib inline
+plt.style.use(‘ggplot’)
+fig, as = plt.subplots(figsize=(5,6)) # 그래프 영역 설정
+plt.show()
+
+(ex) seaborn 스타일 지정
+sns.set(style=‘darkgrid’) # 배경 스타일
+sns.set_context(‘notebook’, font_scale=1.5, rc={‘lines.linewidth’:2.5}) # 플롯팅 컨텍스트 파라미터 설정
+sns.set_palette(‘dark’, 3) # 컬러 팔레트 지정
+ax = sns.scatterplot(x=‘petal_length’, y=‘petal_width’, data=iris)
+
+## Seaborn 그래프 그리기
+#관계형 그래프
+relplot() : 관계형플롯을 FacetGrid에 그리기 위한 Figure 레벨 인터페이스
+scatterplot() : 산점도 그래프, 그룹화 가능
+(ex) sns.scatterplot(x=‘petal_length’, y=‘petal_width’, hue=‘species’, style=’species’, data=iris)
+lineplot() : 신뢰구간을 나타내는 오차 밴드가 있는 선 그래프, 그룹화 가능
+(ex) sns.lineplot(x=‘petal_length’, y=‘petal_width’, hue=‘species’, style=’species’, markers=True, dashes=False, data=iris) # 점 스타일로 그룹표시, 선 스타일은 동일
+
+(ex) pyplot.subplots()로 축에 그리기
+fig, axes = plt.subplots(ncols=2, figsize=(8, 5))
+plt.subplots_adjust(wspace=0.3)
+sns.scatterplot(x=‘petal_length’, y=‘petal_width’, data=iris, ax=axes[0])
+sns.lineplot(x=‘petal_length’, y=‘petal_width’, data=iris, ax=axes[1])
+pat.show()
+결과: 1행1열에 산점도그래프, 1행2열에 라인그래프
+ax = sns.scatterplot(x=‘petal_length’, y=‘petal_width’, data=iris)
+ax = sns.lineplot(x=‘petal_length’, y=‘petal_width’, data=iris)
+결과: 축 하나에 그래프 2개(산점도그래프, 라인그래프)
+
+#범주형 그래프
+stripplot() : 변수 하나가 범주형인 산점도 그래프
+swarmplot() : 범주형 산점도의 점들이 중첩되지 않게 퍼트려서 플롯팅한 그래프
+barplot() : 포인트 추정치와 신뢰구간을 막대그래프로 표시, 범주형 데이터 표현
+countplot() :  막대를 사용하여 각 범주구간의 관측 갯수 표시
+pointplot() :  산점도 그림문자를 사용하여 점 추정치 및 신뢰구간 표시
+boxplot() : 사분위 그래프
+violinplot() : 박스플롯과 커널 밀도 추정치의 조합 그래프
+pairplot() : 쌍 관계 그래프(페어 플롯)
+
+#회귀 그래프
+lmplot() : 데이터와 회귀 모델 적합 그래프(FacetGrid에 그림)
+regplot() : 두 변수와 선형 회귀 모델 그래프
+
+#행렬 그래프
+heatmap() : 데이터를 색으로 인코딩한 직사각형 행렬 표시
+
+#다중 플롯
+FacetGrid() : 조건부 관계를 그리기 위한 다중 플롯 그리드 생성
+FacetGrid.map() : 데이터 하위 집합에 플로팅 기능 적용
+FacetGrid.map_dataframe() : .map과 비슷, args를 문자열로 전달하고 kwargs에 데이터 삽입
+(ex)
+g = sns.FacetGrid(iris, col=’species’, hue=’species’) #다중 플롯 그리드 생성
+g.map(plt.hist, ‘sepal_length’) #sepal_length으로 플로팅
+g.set_axis_labels(‘sepal_length’, ‘Count’)
