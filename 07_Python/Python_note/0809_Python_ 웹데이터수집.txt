@@ -1,0 +1,76 @@
+## Beautiful Soup
+: 스크린 스크래핑(웹데이터 수집) 프로젝트를 위해 설계된 파이썬 라이브러리. 구문 분석, 트리 탐색, 검색 및 수정을 위해 문서를 분석하고 추출하는 도구, 유니코드로 보내고 UTR-8로 자동 변환
+공식 사이트 : https://www.crummy.com/software/BeautifulSoup/
+
+파서 라이브러리 
+1.BeautifulSoup(markup, ‘html.parser’)
+2.BeautifulSoup(markup, ‘lxml’) : 매우 빠름, 호환성
+3.BeautifulSoup(markup, ‘xml’) : 매우 빠름, xml파서만 지원
+
+Selector API : select() select_one() find()
+soup.select(‘CSS선택자’) : ‘CSS선택자’에 해당하는 모든 요소 반환
+soup.select_one(‘CSS선택자’) : ‘CSS선택자’에 해당하는 첫번째 태그요소만 반환
+태그선택자("selector1")
+다중(그룹) 선택자("selector1, selector2, selectorN")
+내포선택자(“div b)
+자식선택자(“div > b”) : 두 단계 이상 건너뛴 관계에서는 작동하지 않음
+클래스 선택자("div.contents")
+아이디 선택자(“#id”)
+속성선택자("[id=subject]")
+
+DOM(Document Object Model, 문서객체모델) : HTML 문서에서 원하는 요소를 찾는 메소드를 실행시키기 위해 파싱하여 만들어진 객체
+
+## requests
+: 파이썬에서 HTTP요청을 만들기 위한 표준
+
+HTTP 상태코드
+100번 영역 : 정보전송
+200번 영역 : 성공
+300번 영역 : 리다이렉션
+400번 영역 : 클라이언트 측 오류
+500번 영역 : 서버측 오류
+(ex)response.status_code
+if response.status_code == 200:
+	print(‘Success!’)
+elif response.status_code == 404:
+	print(’Not found’)
+else:
+	print(‘An error has occurred.’)
+
+(ex)requests를 이용해 영화 랭킹 출력하기
+import requests
+from bs4 import BeautifulSoup
+url = ‘http://movie.naver.com/movie/sdb/rank/rmovie.nhn’
+movie_ranking = requests.get(url)
+movie_ranking
+결과: <Response [200]>
+soup = BeautifulSoup(movie_ranking.content, ‘html.parser’)
+title_list = soup.select(‘div.tit2 > a’)
+title_list[0]
+결과: <a href=“/movie/bi/mi/basic.nhn?code=177967” title=“악인전”>악인전</a>
+for i, titile in enumerate(title_list):
+	print(‘{}위: {}’.format(i+1, title.text))
+결과: 1위: 악인전 … 형태의 타이틀 리스트
+
+## 셀레니움(Selenium)
+: 브라우저의 동작을 자동화 해주는 프로그램, WebDriver를 통해 브라우저를 제어함
+WebDriver
+Chrome : https://sites.google.com/a/chromium.org/chromedriver/downloads
+Safari : https://webkit.org/blog/6900/webdriver-support-in-safari-10/
+Edge : https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
+Firefox : https://github.com/mozilla/geckodriver/releases
+
+(ex)Selenium을 이용해 자동으로 검색한 리스트 저장하기
+from selenium import webdriver
+driver = web driver.Chrome(‘C:/Users/user/Downloads/chromedriver’) # 웹드라이버실행
+driver.get(’http://www.python.org') # 사이트 접속
+elem = driver.find_element_by_name(‘q’)
+elem.clear() # 기존내용 없앰
+elem.send_keys(‘pycon’) # pycon 타이핑
+from selenium.webdriver.common.keys import Keys
+elem.send_keys(Keys.RETURN) # 엔터키 누르기
+result_list = driver.find_elements_by_css_selector(‘form h3 > a’)
+for result in result_list:
+	print(result.text)
+driver.close() # 브라우저 종료
+결과: pycon검색한 결과 리스트 출력
