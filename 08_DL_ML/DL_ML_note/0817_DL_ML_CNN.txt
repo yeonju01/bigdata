@@ -1,0 +1,52 @@
+## 딥러닝(CNN)
+: 이미지나 영상데이터 처리
+
+1.컨볼루션 신경망레이어 : 필터로 특징을 출력
+(ex) Conv2D(32, (5, 5), padding=‘valid’, input_shape=(28, 28, 1), activation=‘relu’)
+첫번째 인자 : 컨볼루션 필터의 수
+두번째 인자 : 컨볼루션 커널의 (행,열)
+padding : 경계처리 방법(valid:유효한 영역만 출력, same:출력,입력 이미지 사이즈 동일)
+input_shape : 샘플 수를 제외한 입력 형태 정의 (행, 열, 채널 수)
+activation : 활성화 함수 설정
+
+2.풀링 
+max pooling(일정 크기 내의 데이터 값 중 가장 큰 값을 대푯값으로 설정)
+mean pooling(일정 크기 내의 데이터 값의 평균을 대푯값으로 설정)
+stochastic pooling(일정 크기 내의 데이터 값들 중 하나를 확률에 근거하여 대푯값으로 설정)
+(ex)MaxPooling2D(pool_size=(2, 2))
+
+3.플래튼 
+Flatten() : 영상을 일차원으로 바꿔주는 레이어
+
+(ex) 컨볼루션 신경망 레이어 쌓기
+model = Sequential()
+model.add(Conv2D(2, (3, 3), padding=‘same’, activation=‘relu’, input_shape=(8, 8, 1))) 
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Conv2D(3, (2, 2), padding=‘same’, activation=‘relu’))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Flatten())
+model.add(Dense(8, activation=‘relu’))
+model.add(Dense(3, activation=‘softmax’))
+
+(ex) 데이터 부풀리기(손글씨)
+train_datagen = ImageDataGenerator(rescale=1./255,
+				rotation_range=10,
+				width_shift_range=0.2,
+				height_shift_range=0.2,
+				shear_range=0.7, #0.7라이안 밀림
+				zoom_range=[0.9, 2.2], #0.9~2.2배
+				horizontal_flip=True, #수평방향으로 뒤집기
+				vertical_flip=True, #수직방향으로 뒤집기
+				fill_mode=‘nearest’) #이동,축소 시 공간을 채우는 방식
+train_generator = train_datagen.flow_from_directory(
+	‘data/handwriting/hand_test/train’,
+	target_size=(24,24)
+	batch_size=3,
+	class_mode=‘categorical’)
+
+test_datagen = ImageDataGenerator(rescale=1./255)
+test_generator = test_datagen.flow_from_directory(
+	‘data/handwriting/hand_test/test’,
+	target_size=(24,24),
+	batch_size=3,
+	class_mode=‘categorical’)

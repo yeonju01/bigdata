@@ -62,18 +62,3 @@ Dense 레이어 : 입출력을 연결, 가중치가 높을수록 출력 뉴런�
 input_dim : 입력 뉴런의 수
 init : 가중치 초기화 방법 (uniform:균일분포, normal:가우시안분포)
 activation : 활성화 함수 설정(linear:디폴트,입력뉴런과 가중치로 계산된 값 그대로 출력, relu:은닉층에 주로 쓰임, sigmoid:이진분류에서 출력층에 주로 쓰임, softmax:다중분류에서 출력층에 주로 쓰음)
-
-컨볼루션 신경망레이어 : 필터로 특징을 출력
-(ex) Conv2D(32, (5, 5), padding=‘valid’, input_shape=(28, 28, 1), activation=‘relu’)
-첫번째 인자 : 컨볼루션 필터의 수
-두번째 인자 : 컨볼루션 커널의 (행,열)
-padding : 경계처리 방법(valid:유효한 영역만 출력, same:출력,입력 이미지 사이즈 동일)
-input_shape : 샘플 수를 제외한 입력 형태 정의 (행, 열, 채널 수)
-activation : 활성화 함수 설정
-
-풀링 : 
-max pooling(일정 크기 내의 데이터 값 중 가장 큰 값을 대푯값으로 설정)
-mean pooling(일정 크기 내의 데이터 값의 평균을 대푯값으로 설정)
-stochastic pooling(일정 크기 내의 데이터 값들 중 하나를 확률에 근거하여 대푯값으로 설정)
-(ex)MaxPooling2D(pool_size=(2, 2))
-Flatten() : 영상을 일차원으로 바꿔주는 레이어
