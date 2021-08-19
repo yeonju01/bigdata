@@ -1,0 +1,90 @@
+## 텍스트마이닝
+: 데이터마이닝 중 뉴스기사, SNS글 등 자연어에서 의미 있는 정보를 찾는 것, 비정형 문서 데이터로부터 문서별 단어의 행렬(Matrix)를 만들고 분석기법을 사용하여 의사결정을 지원
+문서 > Corpus > Matrix > 분석
+
+## NLTK패키지
+: 자연어 처리 패키지. 말뭉치, 토큰 생성, 형태소 분석, 품사 태깅
+
+1.말뭉치(Corpus)
+(ex)
+import nltk
+nltk.download()
+nltk.download('book', quiet=True) 
+결과: True
+from nltk.book import *
+nltk.corpus.gutenberg.fileids() # 텍스트 리스트 확인
+emma = nltk.corpus.gutenberg.raw("austen-emma.txt")
+print(emma)
+결과: 소설 '엠마'의 내용 출력
+
+2.토큰생성
+print(sent_tokenize(emma)[3]) : 문장 단위의 토큰 리스트 출력, 3문장
+word_tokenize(emma[50:100]) : 단어 단위의 토큰 리스트 출력
+RegexpTokenizer : 정규표현식을 이용하여 토큰화에 포함할 문자들을 출력
+(ex) RegexpTokenizer클래스 사용하여 토큰화
+From nltk.tokenize import RegexpTokenizer
+ret = RegexpTokenizer("[\w]+")
+ret.tokenize(emma)
+결과 : ['Emma', 'Woodhouse', 'handsome', ...]
+
+3.형태소분석
+1.어간추출
+PorterStemmer
+LancasterStemmer
+RegexpStemmer
+SnowballStemmer
+(ex)RegexpStemmer사용하여 어간추출
+words = [“sending”, “cooking”, “flies”, “lives”, “crying”, “dying”]
+from nltk.stem.regexp import RegexpStemmer
+rest = RegexpStemmer(‘ing’)
+[rest.stem(w) for w in words]
+결과: [‘send’, ‘cook’, ‘flies’, ‘lives’, ‘cry’, ‘dy’]
+
+2.원형복원
+Lemmatizing
+(ex)
+words = [“cooking”, “believes”]
+from nltk.stem.wordnet import WordNetLemmatizer
+wl = WordNetLemmatizer()
+[wl.lemmatize(w, pos=‘v’) for w in words3]
+결과: [‘cook’, ‘believe’]
+
+3.품사태깅
+POS Tagging
+(ex)
+from nltk.tag import pos_tag
+tagged_list = pos_tag(word_tokenize(sentence))
+print(tagged_list)
+결과: [(‘Emma’, ‘NNP’), (‘Woodhouse’), (‘NNP’), (,), (,), (‘handsome’),(‘NN’), …]
+nouns_list = [ t[0] for t in tagged_list if t[1]==“NN” ]
+nouns_list
+결과: [‘handsome’, ‘clever’, ‘home’, ‘disposition’, ‘existence’, ‘world’]
+
+4.Text 클래스
+(ex)단어 빈도수 그래프
+ret = RegexpTokenizer(“[\w]{2,}”)
+from nltk import Text
+emma_text = Text(ret.tokenize(emma))
+emma_text.plot(20)
+결과: emma 단어들의 빈도수 그래프
+
+(ex)Emma 단어가 일치하는 문장들
+emma_text.concordance(‘Emma’, lines=5)
+결과: Displaying 5 of 865 matches: …
+
+(ex)비슷한 단어 찾기
+emma_text.similar(“general”)
+결과: general과 비슷한 단어가 있는 문장
+
+(ex)단어 빈도수 그래프2
+emma_text.dispersion_plot([‘Emma’, ‘Frank’, ‘Jane’])
+결과: 해당 단어들의 빈도수 그래프(offset)
+
+(ex)사용빈도 정보를 담는 클래스
+from nltk import FreqDist
+stopwords = [“Mr.”, “Mrs.”]
+emma_tokens = pos_tag(emma_text)
+names_list = [ t[0] for t in emma_tokens if t[1] == “NNP” and t[0] not in stopwords]
+emma_fd_names = FreqDist(names_list)
+emma_fd_names
+결과: FreqDist({‘Emma’ : 833, ‘Harriet’ : 489, ‘Weston’ : 439, …})
