@@ -1,0 +1,106 @@
+## 자연어처리
+: 번역, 검색, 분류, 가공에 활용
+1.자연어 이해 : 형태소 분석(품사 결정) -> 구문 분석(문장 해석) -> 의미 분석-> 대화분석
+2.자연어 생성 : 대화 분석기 -> 문장 생성기(생성 사전) -> 출력 문장
+
+## 한글 형태소 분석
+: 단어를 구성하는 각 형태소를 분리하고 형태소의 기본형 및 품사정보를 추출
+어절 -> 전처리(단어 추출) -> 분석 후보 생성(형태소 분리, 원형 복원) -> 결합 제약 검사 -> 분석 후보 선택 -> 후처리(중의어 처리, 문장 구조검사) -> 형태소
+
+1.형태소 분석 엔진(품사태그 참조필요)
+KoNLPy : 파이썬용 자연어 처리기
+KOMORAN : 자바로 만든 형태소 분석기
+HanNanum : 자바로 만든 형태소 분석기
+KoNLP : R용 자연어 처리기
+Kkma : 서울대학교에서 만든 형태소 분석기
+- analyxe() : 각 토큰에 대한 다양한 형태소 후보들 반환
+- morphs() : 형태소 분석 반환
+- nouns() : 명사 추출
+- pos(, flatten=True) : 품사태깅, flatten=False는 어절 보존
+
+(ex) Komoran 형태소 분석기를 이용한 태깅
+from konlpy.tag import Komoran
+kom = Komoran()
+print(kom.morphs(text))
+결과 : text의 형태소 분석 반환
+print(kom.nouns(text))
+결과 : text의 명사 추출
+print(kom.pos(text))
+결과 : text의 품사태깅
+
+2.말뭉치
+: 자연어 분석 작업을 할 수 있도록 만든 문서 집합
+KoNLPy 패키지 : kola, kobil 사용 가능
+
+3.워드 클라우드
+: 단어를 출현 빈도에 비례한 크기로 시각화
+(ex) pip install wordcloud 하고 워드 클라우드 사용
+import matplotlib.pyplot as plt
+%matplotlib inline
+from wordcloud import WordCloud
+from sklearn.feature_extraction.stop_words import ENGLISH_STOP_WORDS
+
+불용어 = STOPWORDS | ENGLISH_STOP_WORDS | set([‘대통령’, ‘국가’]) # 불용어 사전 추가
+word_list = komoran.nouns(“%r”%data)
+text = ‘ ’.join(word_list) # 데이터를 한줄로 join
+wordcloud = WordCloud(background_color = ‘white’, max_words=2000, 
+			font_path=‘c:/Windows/Fonts/malgun.ttf’, reletive_scaling=0.2)
+wordcloud.generate(text)
+plt.figure()
+plt.imshow(word, interpolation=‘bilinear’)
+plt.axis(‘off’)
+
+(ex) 워드 클라우드 마스킹
+from PIL import Image
+import numpy as np
+ing = Image.open(‘south_korea.png’).convert(‘RGBA’) # 투명도 변환
+mask = Image.new(‘RGB’, img.size, (255,255,255))
+mask.paste(img, img)
+mask = np.array(mask) # 마스킹
+
+wordcloud = WordCloud(background_color = ‘white’, max_words=2000, 
+			font_path=‘c:/Windows/Fonts/malgun.ttf’, reletive_scaling=0.2)
+wordcloud.generate(text)
+wordcloud.to_file(‘result1.png’) # 저장
+
+(ex) 단어 빈도수 계산
+import nltk
+import matplotlib.font_manager as fm
+plt.figure(figsize=(12,6))
+font_name = fm.FontProperties(fname=‘C:/Windows/Fonts/H2GTRM.TTF’).get_name() # 폰트깨짐 방지
+plt.rc(‘font’, family = font_name)
+nltk.Text(word_list).plot(50)
+
+## 워드 임베딩
+: 단어를 벡터로 표현, 희소표현(원핫인코딩으로 나온 벡터)에서 밀집표현(사용자가 설정한 값, 벡터 표현의 차원을 맞췄기 때문에 실수값을 가짐)으로 변환
+Word2Vec : 단어간 유사성 확인을 위해 단어의 의미를 벡터화하는 패키지
+(ex)
+class Word2Vec(sentences=None, size=100, window=5, min_count=5, workers=3)
+
+CBOW : 주변에 있는 단어들로 중간의 단어를 예측하는 방법
+Skip-Gram : 중간에 있는 단어들로 주변의 단어를 예측하는 방법
+
+(ex) 뉴스기사 워드 임베딩
+import requests
+rss_url = “http://fs.jtbc.joins.com/RSS/economy.xml” # jtbc의 RSS불러오기
+jtbc_economy = request.get(rss_url)
+
+from bs4 import BeautifulSoup
+economy_news_list = BeautifulSoup(jtbc_economy.content. ‘xml’)
+link_list = economy_news_list.select(‘’time > link”) # 경제 기사 리스트 가져오기
+
+from konlpy.tag import Kkma
+kkma = Kkmo()
+news = []
+for link in link_list:
+	news_url = link.text
+	news_response = requests.get(news_url)
+	news_soup = BeautifulSoup(news_response.content, “html.parser”)
+	news_content = news_soup.select_one(‘#articlebody > .article_content’)
+	news.append(list(filter(lambda word: len(word)>1, kkma.nouns(news_content.text)))
+
+from gensim.models import Word2Vec
+model = Word2Vec(news, size=100, window=5, min_count=2, workers=1)
+model.wv.most_similar(‘누진제’)
+결과 : [(‘이사회’, 0.2872389487), (‘신도시’, 0.2768978332), …)]
+
