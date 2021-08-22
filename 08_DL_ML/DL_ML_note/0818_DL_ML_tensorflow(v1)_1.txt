@@ -1,0 +1,80 @@
+## tensorflow
+: Node와 Edge로 구성된 Data flow graph를 사용하는 오픈소스 라이브러리
+Node : 데이터 입출력 수행
+Edge : Tensor(다차원배열)를 Node로 옮기는 역할
+
+(ex) tensorflow로 출력
+import tensorflow as tf
+node = tf.constant(‘Hello World’)
+sess = tf.Session()
+print(sess.run(node).decode())
+결과: Hello World
+
+(ex) placeholder 사용
+import tensorflow as tf
+node1 = tf.placeholder(dtype=tf.float32)
+node2 = tf.placeholder(dtype=tf.float32)
+node3 = node1 + node2
+sess = tf.Session()
+result = sess.run(node3, feed_dict={node1:10, node2:20}) # 그래프 실행단계에서 값을 정해줌
+print(‘덧셈연산결과 : {}’.format(result))
+결과: 덧셈연산결과 : 30
+
+# tensorflow로 머신러닝
+지도학습(Supervised Learning)
+: Linear Regression, Logistic Regression, Multinomial Classification
+
+1.Linear Regression : 데이터와 현상들이 linear한 형태를 가짐
+Linear Hypothesis(가설)를 수정해 나가면서 데이터에 가장 적합한 선을 찾는 학습
+H(x) = Wx + b 에서 가장 적합한 W, b를 찾는 것이 목적
+ -> Cost(Loss) Function 사용(최소제곱법) 
+(ex) placeholder를 이용하여 초기데이터 세팅
+import tensorflow as tf
+x = tf.placeholder(dtype=tf.float32)
+y = tf.placeholder(dtype=tf.float32)
+x_data = [1,2,3]
+y_data = [1,2,3]
+
+W = tf.Variable(tf.random_normal([1]), name=‘weight’)
+b = tf.Variable(tf.random_normal([1]), name=‘bias’)
+H = W * x + b
+cost = tf.reduce_mean(tf.square(H-y))
+optimizer = tf.train.GrandientDescentOptimizer(learning_rate=0.01)
+train = optimizer.minimize(cost)
+sess = tf.Session()
+sess.run(tf.global_variables_initializer())
+
+for step in range(3000):
+	_, w_val, b_val, cost_val = sess.run([train, W, b, cost], 
+					feed_dict={x:x_data, y:y_data}) # feed_dict로 데이터설정
+	if step % 300 == 0:
+		print(‘W의 값 : {}, b의 값: {}, cost의 값: {}’.format(w_val, b_val, cost_val))
+
+print(sess.run(H, feed_dict={x:[17]})) # 학습 종료 후 데이터를 이용한 추정
+print(sess.run(H, feed_dict={x:[100,200,300]}))
+
+(ex) Cost(Loss) function 값을 최소화시키는 W 찾기(미분이용)
+W = tf.Variable(tf.random_normal([1]), name=‘weight’)
+b = tf.Variable(tf.random_normal([1]), name=‘bias’)
+H = W * x + b
+cost = tf.reduce_mean(tf.square(H-y))
+optimizer = tf.train.GrandientDescentOptimizer(learning_rate=0.01)
+train = optimizer.minimize(cost)
+
+(ex) Multi-variable linear regression(Matrix를 이용한 Hypothesis)
+H(x) = XW + b
+x_data = [[78,80,75], [93,88,93], [89,91,90]]
+y_data = [[152], [185], [180]]
+X = tf.placeholder(shape=[None, 3], dtype=tf.float32)
+Y = tf.placeholder(shape=[None, 1], dtype=tf.float32)
+W = tf.Variable(tf.random_normal([3,1]), name=‘weight’)
+b = tf.Variable(tf.random_normal([1]), name=‘bias’)
+H = tf.matmul(X, W) + b
+cost = tf.reduce_mean(tf.square(H-Y))
+train = tf.train.GradientDescentOptimizer(learning_rate=1e-5).minimize(cost)
+sess = tf.Session()
+sess.run(tf.global_variables_initializer())
+for step in range(3000):
+	_, cost_val = sess.run([train, cost], feed_dict={x:x_data, y:y_data}) 
+	if step % 300 == 0:
+		print(‘cost : {}’.format(cost_val))
